@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 452" width="860" height="452" role="img" aria-labelledby="t d">
+<title id="t">Where the money sits today</title><desc id="d">Current market value of each holding plus uninvested cash.</desc>
+<style>text{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:12px}.b{font-weight:600}.num{font-variant-numeric:tabular-nums}line,path{fill:none}.line{stroke-width:2;stroke-linejoin:round;stroke-linecap:round}.bg{fill:#fcfcfb}.grid{stroke:#e1e0d9}.axis{stroke:#c3c2b7}.t{fill:#52514e}.tp{fill:#0b0b0b}.tm{fill:#898781}.lm{stroke:#898781}.ring{stroke:#fcfcfb}.ls1{stroke:#2a78d6}.fs1{fill:#2a78d6}.ls2{stroke:#eb6834}.fs2{fill:#eb6834}.ls3{stroke:#1baf7a}.fs3{fill:#1baf7a}.lneg{stroke:#e34948}.fneg{fill:#e34948}.lmuted{stroke:#898781}.fmuted{fill:#898781}@media (prefers-color-scheme:dark){.bg{fill:#1a1a19}.grid{stroke:#2c2c2a}.axis{stroke:#383835}.t{fill:#c3c2b7}.tp{fill:#f0efec}.tm{fill:#898781}.lm{stroke:#898781}.ring{stroke:#1a1a19}.ls1{stroke:#3987e5}.fs1{fill:#3987e5}.ls2{stroke:#d95926}.fs2{fill:#d95926}.ls3{stroke:#199e70}.fs3{fill:#199e70}.lneg{stroke:#e66767}.fneg{fill:#e66767}.lmuted{stroke:#898781}.fmuted{fill:#898781}}</style>
+<rect class="bg" width="860" height="452" rx="8"/>
+<path class="fs1" style="stroke:none" d="M188.0,22.0 H759.4 Q763.4,22.0 763.4,26.0 V36.0 Q763.4,40.0 759.4,40.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="35.0" text-anchor="end">ASML (ASML)</text>
+<text class="tp num" x="769.4" y="35.0">$4,742 · 14%</text>
+<path class="fs1" style="stroke:none" d="M188.0,52.0 H699.8 Q703.8,52.0 703.8,56.0 V66.0 Q703.8,70.0 699.8,70.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="65.0" text-anchor="end">Amazon (AMZN)</text>
+<text class="tp num" x="709.8" y="65.0">$4,251 · 12%</text>
+<path class="fs1" style="stroke:none" d="M188.0,82.0 H670.9 Q674.9,82.0 674.9,86.0 V96.0 Q674.9,100.0 670.9,100.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="95.0" text-anchor="end">Palo Alto Networks (PANW)</text>
+<text class="tp num" x="680.9" y="95.0">$4,013 · 12%</text>
+<path class="fs1" style="stroke:none" d="M188.0,112.0 H599.9 Q603.9,112.0 603.9,116.0 V126.0 Q603.9,130.0 599.9,130.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="125.0" text-anchor="end">SpaceX (SPCX)</text>
+<text class="tp num" x="609.9" y="125.0">$3,428 · 10%</text>
+<path class="fs1" style="stroke:none" d="M188.0,142.0 H593.6 Q597.6,142.0 597.6,146.0 V156.0 Q597.6,160.0 593.6,160.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="155.0" text-anchor="end">Micron (MU)</text>
+<text class="tp num" x="603.6" y="155.0">$3,376 · 10%</text>
+<path class="fs1" style="stroke:none" d="M188.0,172.0 H570.6 Q574.6,172.0 574.6,176.0 V186.0 Q574.6,190.0 570.6,190.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="185.0" text-anchor="end">Shopify (SHOP)</text>
+<text class="tp num" x="580.6" y="185.0">$3,186 · 9%</text>
+<path class="fs1" style="stroke:none" d="M188.0,202.0 H521.9 Q525.9,202.0 525.9,206.0 V216.0 Q525.9,220.0 521.9,220.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="215.0" text-anchor="end">Meta (META)</text>
+<text class="tp num" x="531.9" y="215.0">$2,785 · 8%</text>
+<path class="fs1" style="stroke:none" d="M188.0,232.0 H477.3 Q481.3,232.0 481.3,236.0 V246.0 Q481.3,250.0 477.3,250.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="245.0" text-anchor="end">Oscar Health (OSCR)</text>
+<text class="tp num" x="487.3" y="245.0">$2,417 · 7%</text>
+<path class="fs1" style="stroke:none" d="M188.0,262.0 H424.1 Q428.1,262.0 428.1,266.0 V276.0 Q428.1,280.0 424.1,280.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="275.0" text-anchor="end">Nvidia (NVDA)</text>
+<text class="tp num" x="434.1" y="275.0">$1,979 · 6%</text>
+<path class="fs1" style="stroke:none" d="M188.0,292.0 H368.2 Q372.2,292.0 372.2,296.0 V306.0 Q372.2,310.0 368.2,310.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="305.0" text-anchor="end">Tesla (TSLA)</text>
+<text class="tp num" x="378.2" y="305.0">$1,518 · 4%</text>
+<path class="fs1" style="stroke:none" d="M188.0,322.0 H343.4 Q347.4,322.0 347.4,326.0 V336.0 Q347.4,340.0 343.4,340.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="335.0" text-anchor="end">Alphabet (GOOGL)</text>
+<text class="tp num" x="353.4" y="335.0">$1,314 · 4%</text>
+<path class="fs1" style="stroke:none" d="M188.0,352.0 H281.6 Q285.6,352.0 285.6,356.0 V366.0 Q285.6,370.0 281.6,370.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="365.0" text-anchor="end">GE Vernova (GEV)</text>
+<text class="tp num" x="291.6" y="365.0">$804 · 2%</text>
+<path class="fs1" style="stroke:none" d="M188.0,382.0 H236.2 Q240.2,382.0 240.2,386.0 V396.0 Q240.2,400.0 236.2,400.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="395.0" text-anchor="end">TSMC (TSM)</text>
+<text class="tp num" x="246.2" y="395.0">$430 · 1%</text>
+<path class="fmuted" style="stroke:none" d="M188.0,412.0 H244.7 Q248.7,412.0 248.7,416.0 V426.0 Q248.7,430.0 244.7,430.0 H188.0 Z"/>
+<text class="tp" x="176.00000000000003" y="425.0" text-anchor="end">Cash</text>
+<text class="tp num" x="254.7" y="425.0">$500 · 1%</text>
+<line class="axis" x1="188.0" x2="188.0" y1="12" y2="440" stroke-width="1"/>
+</svg>

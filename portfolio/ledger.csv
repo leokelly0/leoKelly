@@ -1,0 +1,21 @@
+date,date_end,action,ticker,amount_usd,note
+2025-04-01,,DEPOSIT,,6000,Round 1: new money
+2025-04-01,,BUY,TSLA,1000,$1k into each of six names
+2025-04-01,,BUY,NVDA,1000,
+2025-04-01,,BUY,TSM,1000,
+2025-04-01,,BUY,GOOGL,1000,
+2025-04-01,,BUY,GEV,1000,
+2025-04-01,,BUY,OSCR,1000,
+2025-08-01,,DEPOSIT,,3500,Round 2: new money
+2025-08-01,,BUY,ASML,2000,
+2025-08-01,,BUY,GOOGL,1500,Adding to Google
+2026-03-01,,DEPOSIT,,6000,Round 3: new money (Mar 1 was a Sunday so trades fill Mon Mar 2)
+2026-03-01,,SELL,GEV,2000,Partial trim of GE Vernova
+2026-03-01,,BUY,AMZN,3500,
+2026-03-01,,BUY,PANW,1500,
+2026-03-01,,BUY,MU,1500,
+2026-05-08,2026-05-12,SELL,GOOGL,4000,Partial trim; spread evenly over May 8/11/12
+2026-05-08,2026-05-12,SELL,TSM,2000,Partial trim; spread evenly over May 8/11/12
+2026-05-08,2026-05-12,BUY,SHOP,2000,Funded from the trims; spread evenly over May 8/11/12
+2026-07-31,,BUY,SPCX,2500,SpaceX (listed on Nasdaq 2026-06-12); paid from cash
+2026-07-31,,BUY,META,2500,Paid from cash

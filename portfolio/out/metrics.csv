@@ -1,0 +1,31 @@
+metric,value,description
+as_of,2026-10-27,Last close in the price data
+contributed,15500.0,New money deposited
+value,34742.344155,Holdings plus cash at the last close
+pnl,19242.344155,Value minus money put in
+simple_return,1.241442,Profit divided by money put in
+xirr,0.963544,"Money-weighted return (IRR), annualised"
+twr,2.05697,Time-weighted return since the first trade
+cash,500.0,Uninvested cash
+realized_pnl,4666.153229,Profit locked in by sales (average cost)
+unrealized_pnl,14576.190926,Paper profit on shares still held
+peak_value,37469.332466,Highest daily closing value
+peak_value_date,2026-10-06,Date of the highest closing value
+max_drawdown,-0.141912,"Worst fall from a peak, time-weighted"
+volatility,0.300646,Annualised volatility of daily returns
+spy_volatility,0.169056,"SPY annualised volatility, same days"
+beta_to_spy,1.502122,Beta of daily returns to SPY
+dividends_gross_estimate,74.325079,Gross dividends the shares would have earned (not in returns)
+excess_vs_spy,15449.418225,Portfolio value minus the same deposits in SPY
+positions,13,Holdings still open
+positions_in_profit,13,Holdings with a total profit above zero
+spy_value,19292.92593,"S&P 500 (SPY), same deposits: value"
+spy_pnl,3792.92593,"S&P 500 (SPY), same deposits: pnl"
+spy_simple_return,0.244705,"S&P 500 (SPY), same deposits: simple return"
+spy_xirr,0.208192,"S&P 500 (SPY), same deposits: xirr"
+spy_twr,0.372016,"S&P 500 (SPY), same deposits: twr"
+qqq_value,20829.02112,"Nasdaq-100 (QQQ), same deposits: value"
+qqq_pnl,5329.02112,"Nasdaq-100 (QQQ), same deposits: pnl"
+qqq_simple_return,0.343808,"Nasdaq-100 (QQQ), same deposits: simple return"
+qqq_xirr,0.289364,"Nasdaq-100 (QQQ), same deposits: xirr"
+qqq_twr,0.525809,"Nasdaq-100 (QQQ), same deposits: twr"
