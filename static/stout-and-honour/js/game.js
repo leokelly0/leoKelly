@@ -78,7 +78,7 @@ class AI {
     if (G.tokens.size < G.maxTokens) { this.token = true; G.tokens.add(this.f.id); this.tokenT = 0; return true; }
     return false;
   }
-  onHurt(att, armored) { if (!armored) { this.release(); this.next = null; this.cd = Math.max(this.cd, rand(0.3, 0.7)); } }
+  onHurt(att, armored) { if (!armored) { this.release(); this.next = null; this.cd = this.f.A.boss ? Math.min(this.cd, 0.15) : Math.max(this.cd, rand(0.3, 0.7)); } }
   chooseMove() {
     const f = this.f, p = G.player, moves = f.A.moves, dist = Math.abs(p.x - f.x), o = G.obs;
     const list = Object.keys(moves).filter((k) => { const m = MOVES[k]; return !(m.minDist && dist < m.minDist) && !m.proj; });
@@ -344,8 +344,10 @@ function resolveHit(att, t, m, opt) {
   if (t.isPlayer && G.god) dmg = 0;
   let react = 'hurt';
   if (t.A && t.A.boss && !opt.env) {
-    if (t.state === 'attack' && t.move && t.move.armor && t.st < t.mt.s + t.mt.a) react = 'armor';
-    else if (!m.knockdown && !m.guardBreak) { t.poise -= dmg; if (t.poise > 0) react = 'flinch'; else t.poise = t.poiseMax; }
+    // bosses can't be stun-locked: armoured wind-ups, poise, then a spell of armour after any big reaction
+    if ((t.state === 'attack' && t.move && t.move.armor && t.st < t.mt.s + t.mt.a) || t.armorT > 0) react = 'armor';
+    else if (!m.knockdown && !m.guardBreak) { t.poise -= dmg; if (t.poise > 0) react = 'flinch'; else { t.poise = t.poiseMax; t.armorT = 2.2; } }
+    else t.armorT = 2.4;
   }
   if (t.state === 'drink' && t.ai && t.ai.drinking) { const k = t.ai.drinking; k.dead = true; t.ai.drinking = null; popup(t, 'MIND THE PINT!', '#ffb03a', 16); stoutFX(t.x, t.y, 70); Sound.sfx.splash(); addCraic(4, 'spill'); }
   const wasDown = t.state === 'down' || t.state === 'getup';
@@ -361,7 +363,7 @@ function resolveHit(att, t, m, opt) {
     if (t.hp <= 0) { t.hp = 0; if (!t.willKO) { t.willKO = true; if (t.state === 'getup') { t.set('down'); t.downT = 0.4; } onKO(t, att, m, opt); } }
   } else if (t.hp <= 0) {
     t.hp = 0; launch(t, dirX, Math.max(m.launch || 320, 330), Math.max(m.kb || 260, 300)); t.willKO = true; onKO(t, att, m, opt);
-  } else if (react === 'armor') { t.vx += dirX * 25; popup(t, 'ARMOUR', '#d9c48a', 12); }
+  } else if (react === 'armor') { t.vx += dirX * 25; if (G.time - (t.armorPop || 0) > 1.2) { t.armorPop = G.time; popup(t, 'ARMOURED', '#ffb03a', 13); } }
   else if (react === 'flinch') { t.vx += dirX * 70; }
   else if (m.knockdown) launch(t, dirX, m.launch || 300, m.kb || 250);
   else { t.set('hurt'); t.hitstun = m.hitstun || 0.3; t.vx = dirX * (m.kb || 80); t.vy *= 0.3; t.move = null; }
@@ -635,6 +637,7 @@ function physics(f, dt) {
   if (f.spiked > 0) f.spiked -= dt;
   if (f.blind > 0) f.blind -= dt;
   if (f.dutch > 0) f.dutch -= dt;
+  if (f.armorT > 0 && f.state !== 'hurt' && f.state !== 'launched' && f.state !== 'down' && f.state !== 'getup') f.armorT -= dt;
   switch (f.state) {
     case 'enter': {
       const t = f.enterTo, dx = t.x - f.x, dy = t.y - f.y, d = Math.hypot(dx, dy);
