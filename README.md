@@ -9,6 +9,8 @@
 ![Open Pull Requests](https://img.shields.io/github/issues-pr/gurusabarish/hugo-profile?color=yellowgreen)
 ![License](https://img.shields.io/github/license/gurusabarish/hugo-profile)
 
+> **New in this fork: [Stout & Honour](static/stout-and-honour/)**, a gladiator brawler set in an Irish pub, built for iPhone. It ships in the theme's `static/` folder, so any site built with this theme serves it at `/stout-and-honour/`. See its [README](static/stout-and-honour/README.md) and [design notes](static/stout-and-honour/DESIGN.md).
+
 **Hugo Profile:** a high-performance, mobile-first Hugo theme for personal portfolios and blogs.
 
 - Example Site: [https://hugo-profile.netlify.app](https://hugo-profile.netlify.app)
