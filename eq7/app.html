@@ -1,0 +1,1179 @@
+<title>EQ7 Index</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one centered column, like the iOS Stocks detail sheet. Quote header, range bar,
+   full-width chart, hairline-separated stat pages, then grouped sections. System font throughout. */
+:root {
+  --bg: #ffffff;
+  --fg: #000000;
+  --fg2: rgba(60, 60, 67, .62);
+  --fg3: rgba(60, 60, 67, .34);
+  --sep: rgba(60, 60, 67, .22);
+  --grid: rgba(60, 60, 67, .12);
+  --fill: rgba(118, 118, 128, .12);
+  --fill2: rgba(118, 118, 128, .2);
+  --card: #f2f2f7;
+  --seg-on: #ffffff;
+  --knob: #ffffff;
+  --up: #1e8037;
+  --down: #d70015;
+  --up-line: #2fa84f;
+  --down-line: #ff3b30;
+  --up-pill: #1e8037;
+  --down-pill: #d70015;
+  --pill-fg: #ffffff;
+  --bench: #007aff;
+  --tint: #007aff;
+  --switch-on: #34c759;
+  --band: rgba(60, 60, 67, .16);
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000; --fg: #ffffff; --fg2: rgba(235, 235, 245, .62); --fg3: rgba(235, 235, 245, .34);
+    --sep: rgba(84, 84, 88, .7); --grid: rgba(84, 84, 88, .45); --fill: rgba(118, 118, 128, .24);
+    --fill2: rgba(118, 118, 128, .36); --card: #1c1c1e; --seg-on: #636366; --knob: #ffffff;
+    --up: #30d158; --down: #ff453a; --up-line: #30d158; --down-line: #ff453a;
+    --up-pill: #22863a; --down-pill: #e0001b; --pill-fg: #ffffff;
+    --bench: #0a84ff; --tint: #0a84ff; --switch-on: #30d158; --band: rgba(235, 235, 245, .16);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #000000; --fg: #ffffff; --fg2: rgba(235, 235, 245, .62); --fg3: rgba(235, 235, 245, .34);
+  --sep: rgba(84, 84, 88, .7); --grid: rgba(84, 84, 88, .45); --fill: rgba(118, 118, 128, .24);
+  --fill2: rgba(118, 118, 128, .36); --card: #1c1c1e; --seg-on: #636366; --knob: #ffffff;
+  --up: #30d158; --down: #ff453a; --up-line: #30d158; --down-line: #ff453a;
+  --up-pill: #22863a; --down-pill: #e0001b; --pill-fg: #ffffff;
+  --bench: #0a84ff; --tint: #0a84ff; --switch-on: #30d158; --band: rgba(235, 235, 245, .16);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 15px; line-height: 1.35;
+  -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+}
+button { font-family: inherit; }
+a { color: var(--tint); }
+:focus-visible { outline: 2px solid var(--tint); outline-offset: 2px; border-radius: 6px; }
+
+.app {
+  max-width: 720px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 10px 36px;
+}
+
+/* quote header */
+.back {
+  display: inline-flex; align-items: center; gap: 3px; margin: 0 0 6px -4px; padding: 6px 4px;
+  color: var(--tint); font-size: 17px; text-decoration: none;
+}
+.back svg { width: 12px; height: 20px; }
+.sym { margin: 0; font-family: var(--font-display); font-size: 28px; font-weight: 700; line-height: 1.12; letter-spacing: .2px; }
+.name { margin-top: 2px; color: var(--fg2); font-size: 15px; }
+.exch { margin-top: 1px; color: var(--fg2); font-size: 13px; }
+.quote { margin-top: 14px; }
+.price { font-family: var(--font-display); font-size: 34px; font-weight: 600; line-height: 1.1; letter-spacing: -.3px; }
+.chg { margin-top: 3px; font-size: 17px; font-weight: 500; }
+.chg .v { font-variant-numeric: tabular-nums; }
+.chg.up .v { color: var(--up); }
+.chg.down .v { color: var(--down); }
+.chg .when { margin-left: 4px; color: var(--fg2); font-weight: 400; }
+.status { margin-top: 3px; color: var(--fg2); font-size: 13px; min-height: 18px; }
+
+/* range bar */
+.tabs { display: flex; gap: 2px; margin-top: 16px; }
+.tab {
+  flex: 1 1 0; min-width: 0; padding: 7px 0; border: 0; border-radius: 8px; background: transparent;
+  color: var(--fg); font-size: 13px; font-weight: 600; line-height: 1; cursor: pointer;
+}
+.tab[aria-selected="true"] { background: var(--fill2); }
+@media (max-width: 359px) { .tab { font-size: 12px; } }
+
+/* legend (compare mode) */
+.legend { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin-top: 12px; font-size: 13px; }
+.key { display: inline-flex; align-items: center; gap: 6px; color: var(--fg2); white-space: nowrap; }
+.key i { width: 14px; height: 2px; border-radius: 1px; }
+.key b { color: var(--fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+.key.spread { color: var(--fg2); }
+
+/* chart */
+.chartwrap { position: relative; margin-top: 6px; }
+.chart {
+  position: relative; touch-action: pan-y; cursor: crosshair; border-radius: 6px;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+}
+.logbtn {
+  position: absolute; top: 0; right: 0; padding: 3px 8px; border: 0; border-radius: 6px; background: transparent;
+  color: var(--fg2); font-size: 11px; font-weight: 600; letter-spacing: .3px; cursor: pointer;
+}
+.logbtn[aria-pressed="true"] { background: var(--fill2); color: var(--fg); }
+.chart svg { display: block; width: 100%; overflow: visible; }
+.gridline { stroke: var(--grid); stroke-width: 1; shape-rendering: crispEdges; }
+.axis { fill: var(--fg2); font-size: 11px; font-variant-numeric: tabular-nums; }
+.line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.line.up { stroke: var(--up-line); }
+.line.down { stroke: var(--down-line); }
+.line.bench { stroke: var(--bench); }
+.stop-up { stop-color: var(--up-line); }
+.stop-down { stop-color: var(--down-line); }
+.ref { stroke: var(--fg3); stroke-width: 1; stroke-dasharray: 1.5 3; }
+.dot { stroke: var(--bg); stroke-width: 2; }
+.dot.up { fill: var(--up-line); }
+.dot.down { fill: var(--down-line); }
+.dot.bench { fill: var(--bench); }
+.cursor { stroke: var(--fg2); stroke-width: 1; shape-rendering: crispEdges; }
+.span { fill: var(--fill); }
+.tip { fill: var(--fg2); font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.fade { animation: fade .28s ease-out; }
+@keyframes fade { from { opacity: .35; } to { opacity: 1; } }
+
+/* compare switch row */
+.cmp {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-top: 10px; padding: 9px 0; border-top: .5px solid var(--sep); border-bottom: .5px solid var(--sep);
+  font-size: 17px; cursor: pointer;
+}
+.cmp small { display: block; color: var(--fg2); font-size: 13px; }
+.switch {
+  position: relative; flex: none; width: 51px; height: 31px; margin: 0; border-radius: 16px;
+  background: var(--fill2); appearance: none; -webkit-appearance: none; cursor: pointer; transition: background .2s;
+}
+.switch::before {
+  content: ""; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%;
+  background: var(--knob); box-shadow: 0 3px 8px rgba(0, 0, 0, .15), 0 1px 1px rgba(0, 0, 0, .16); transition: transform .2s;
+}
+.switch:checked { background: var(--switch-on); }
+.switch:checked::before { transform: translateX(20px); }
+
+/* stat pages */
+.stats { display: flex; gap: 0; margin-top: 6px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.stats::-webkit-scrollbar { display: none; }
+.page {
+  flex: 0 0 100%; min-width: 0; scroll-snap-align: start;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column; column-gap: 20px;
+}
+.stat { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; min-width: 0; padding: 10px 0; border-bottom: .5px solid var(--sep); }
+.stat .k { overflow: hidden; color: var(--fg2); white-space: nowrap; text-overflow: ellipsis; }
+.stat .v { font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dots { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+.dots button { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%; background: var(--fg3); cursor: pointer; }
+.dots button[aria-current="true"] { background: var(--fg); }
+@media (min-width: 760px) {
+  .stats { gap: 16px; overflow: visible; }
+  .page { flex: 1 1 0; column-gap: 16px; }
+  .dots { display: none; }
+}
+@media (max-width: 359px) { .stat { font-size: 13px; } }
+
+/* sections */
+.section { margin-top: 34px; }
+.section-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 12px; }
+.section h2 { margin: 0; font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: .2px; text-wrap: balance; }
+.sub { margin: 3px 0 0; color: var(--fg2); font-size: 13px; }
+
+/* segmented control */
+.seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: 9px; background: var(--fill); }
+.seg button {
+  padding: 6px 12px; border: 0; border-radius: 7px; background: transparent; color: var(--fg);
+  font-size: 13px; font-weight: 500; line-height: 1.1; cursor: pointer; white-space: nowrap;
+}
+.seg button[aria-pressed="true"] { background: var(--seg-on); font-weight: 600; box-shadow: 0 3px 8px rgba(0, 0, 0, .12), 0 3px 1px rgba(0, 0, 0, .04); }
+.seg { max-width: 100%; }
+@media (max-width: 380px) { .seg button { padding: 6px 8px; font-size: 12px; } }
+
+/* performance table */
+.perf { width: 100%; margin-top: 10px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.perf th { padding: 6px 0; color: var(--fg2); font-size: 13px; font-weight: 500; text-align: right; }
+.perf td { padding: 10px 0; border-top: .5px solid var(--sep); text-align: right; white-space: nowrap; }
+.perf th + th, .perf td + td { padding-left: 12px; }
+.perf th:first-child, .perf td:first-child { padding-right: 4px; text-align: left; white-space: normal; }
+.tablewrap { overflow-x: auto; }
+@media (max-width: 380px) {
+  .perf { font-size: 13px; }
+  .perf th + th, .perf td + td { padding-left: 8px; }
+}
+.perf td:first-child { color: var(--fg2); }
+.perf td.up { color: var(--up); }
+.perf td.down { color: var(--down); }
+.perf td.d { font-weight: 600; }
+.note { margin: 8px 0 0; color: var(--fg2); font-size: 12px; }
+
+/* holdings (watchlist rows) */
+.rows { margin: 8px 0 0; padding: 0; list-style: none; }
+.row {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 64px auto; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: .5px solid var(--sep);
+}
+.rows .row:first-child { border-top: .5px solid var(--sep); }
+.rowlink { position: absolute; inset: 0; border-radius: 4px; }
+.row .id { min-width: 0; }
+.row .s { font-size: 17px; font-weight: 700; line-height: 1.25; }
+.row .n { overflow: hidden; color: var(--fg2); font-size: 13px; white-space: nowrap; text-overflow: ellipsis; }
+.row .n b { color: var(--fg); font-weight: 500; font-variant-numeric: tabular-nums; }
+.row .spark { display: block; width: 64px; height: 32px; }
+.row .q { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.row .p { font-size: 17px; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.pill {
+  position: relative; z-index: 1; min-width: 78px; padding: 4px 7px; border: 0; border-radius: 6px;
+  color: var(--pill-fg); font-size: 15px; font-weight: 600; line-height: 1.25; text-align: right; font-variant-numeric: tabular-nums; cursor: pointer;
+}
+.pill.up { background: var(--up-pill); }
+.pill.down { background: var(--down-pill); }
+
+/* about */
+.card { margin-top: 12px; padding: 4px 16px; border-radius: 12px; background: var(--card); }
+.ctl { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; padding: 12px 0; }
+.ctl + .ctl { border-top: .5px solid var(--sep); }
+.ctl .lbl { font-size: 17px; }
+@media (max-width: 480px) { .ctl { flex-direction: column; align-items: flex-start; } }
+.prose { max-width: 62ch; margin: 12px 0 0; font-size: 15px; line-height: 1.45; }
+.drift-h { margin: 22px 0 0; font-size: 17px; font-weight: 600; }
+.drift { margin-top: 8px; }
+.drift svg { display: block; width: 100%; overflow: visible; }
+.drift .bandfill { fill: var(--band); }
+.drift .edge { fill: none; stroke: var(--fg2); stroke-width: 1; }
+.drift .target { stroke: var(--fg); stroke-width: 1; stroke-dasharray: 3 3; }
+.drift .reb { stroke: var(--fg3); stroke-width: 1; shape-rendering: crispEdges; }
+.drift .lab { fill: var(--fg); font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.drift-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; color: var(--fg2); font-size: 12px; }
+.drift-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.drift-legend i { display: inline-block; flex: none; }
+.k-band { width: 14px; height: 10px; border-block: 1px solid var(--fg2); background: var(--band); }
+.k-target { width: 14px; height: 0; border-top: 1px dashed var(--fg); }
+.k-reb { width: 0; height: 12px; border-left: 1px solid var(--fg3); }
+.rules { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 16px; margin: 16px 0 0; font-size: 15px; }
+.rules dt { color: var(--fg2); }
+.rules dd { margin: 0; }
+@media (max-width: 420px) { .rules { grid-template-columns: minmax(0, 1fr); gap: 2px; } .rules dd { margin-bottom: 10px; } }
+.caveat { margin: 16px 0 0; padding: 12px 14px; border-radius: 10px; background: var(--fill); font-size: 13px; line-height: 1.45; }
+.foot { margin-top: 30px; color: var(--fg2); font-size: 12px; line-height: 1.5; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade { animation: none; }
+  .switch, .switch::before { transition: none; }
+}
+</style>
+
+<main class="app" id="app"></main>
+<div class="vh" id="live" aria-live="polite"></div>
+<noscript><p style="padding:16px">This page draws its charts with JavaScript. Turn JavaScript on to see EQ7.</p></noscript>
+
+<script>
+const DATA = /*__EQ7_DATA__*/null;
+
+(() => {
+"use strict";
+
+// ------------------------------------------------------------------ constants
+const D = DATA;
+const N = D.dates.length, LAST = N - 1;
+const CONS = D.constituents, NC = CONS.length, BENCH = D.benchmark;
+const TICKER = "EQ7", NAME = "AI Seven Equal Weight Index";
+const SPECIAL = 0.10;
+const RANGES = ["1D", "1W", "1M", "3M", "6M", "YTD", "1Y", "2Y", "5Y", "10Y", "ALL"];
+const RANGE_LABEL = { "1D": "", "1W": "Past Week", "1M": "Past Month", "3M": "Past 3 Months", "6M": "Past 6 Months",
+  "YTD": "Year to Date", "1Y": "Past Year", "2Y": "Past 2 Years", "5Y": "Past 5 Years", "10Y": "Past 10 Years" };
+const SCHEDULES = { monthly: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], quarterly: [3, 6, 9, 12], annual: [12], never: [] };
+const SCHEDULE_LABEL = { monthly: "Monthly", quarterly: "Quarterly", annual: "Annual", never: "Never" };
+const ET = "America/New_York";
+const MINUS = "−";
+
+// ------------------------------------------------------------------ settings (per viewer)
+const state = (() => {
+  let s = {};
+  try { s = JSON.parse(localStorage.getItem("eq7.v1")) || {}; } catch (e) { s = {}; }
+  return {
+    range: RANGES.includes(s.range) ? s.range : "1Y",
+    compare: s.compare === true,
+    schedule: SCHEDULES[s.schedule] ? s.schedule : "quarterly",
+    total: s.total === true,
+    perf: s.perf === "ann" ? "ann" : "cum",
+    pill: s.pill === "chg" ? "chg" : "pct",
+    log: s.log === true,
+  };
+})();
+function save() { try { localStorage.setItem("eq7.v1", JSON.stringify(state)); } catch (e) { /* storage off */ } }
+
+// ------------------------------------------------------------------ formatting
+const NF = [0, 1, 2, 3, 4].map(d => new Intl.NumberFormat("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }));
+function isZero(s) { return Number(s.replace(/,/g, "")) === 0; }
+function num(v, d = 2) { const s = NF[d].format(Math.abs(v)); return (v < 0 && !isZero(s) ? MINUS : "") + s; }
+function signed(v, d = 2) { const s = NF[d].format(Math.abs(v)); return (isZero(s) ? "" : v > 0 ? "+" : MINUS) + s; }
+function pct(v, d = 2) { return signed(v * 100, d) + "%"; }
+function pctAuto(v) { const a = Math.abs(v * 100); return pct(v, a >= 1000 ? 0 : a >= 100 ? 1 : 2); }
+function plain(v, d = 2) { return num(v * 100, d) + "%"; }
+function compact(v) {
+  for (const [u, s] of [[1e12, "T"], [1e9, "B"], [1e6, "M"], [1e3, "K"]]) if (Math.abs(v) >= u) return NF[2].format(v / u) + s;
+  return NF[0].format(v);
+}
+function dir(v) { return v < 0 ? "down" : "up"; }
+
+const utc = s => Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10));
+const iso = ms => new Date(ms).toISOString().slice(0, 10);
+const fDate = new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric" });
+const fMonthDay = new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", day: "numeric" });
+const fMonth = new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short" });
+const fMonthYear = new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", year: "numeric" });
+const fTime = new Intl.DateTimeFormat("en-US", { timeZone: ET, hour: "numeric", minute: "2-digit" });
+const fDayTime = new Intl.DateTimeFormat("en-US", { timeZone: ET, weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+const fShortDT = new Intl.DateTimeFormat("en-US", { timeZone: ET, month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+const fWeekday = new Intl.DateTimeFormat("en-US", { timeZone: ET, weekday: "short" });
+const fZone = new Intl.DateTimeFormat("en-US", { timeZone: ET, timeZoneName: "short" });
+const fParts = new Intl.DateTimeFormat("en-US", { timeZone: ET, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+function etParts(ms) {
+  const p = {};
+  for (const x of fParts.formatToParts(ms)) p[x.type] = x.value;
+  return { date: `${p.year}-${p.month}-${p.day}`, h: +p.hour, mi: +p.minute };
+}
+function zone(ms) { return (fZone.formatToParts(ms).find(p => p.type === "timeZoneName") || {}).value || "ET"; }
+function etClose(s) { let ms = utc(s) + 20 * 3600e3; if (etParts(ms).h !== 16) ms += 3600e3; return ms; }
+function dateLabel(s) { return fDate.format(utc(s)); }
+
+// ------------------------------------------------------------------ calendar
+const dateIdx = new Map(D.dates.map((d, i) => [d, i]));
+const dayNum = D.dates.map(s => utc(s) / 864e5);
+const weekId = k => Math.floor((dayNum[k] + 3) / 7);
+function idxOnOrBefore(s) {
+  let lo = 0, hi = LAST, ans = -1;
+  while (lo <= hi) { const m = (lo + hi) >> 1; if (D.dates[m] <= s) { ans = m; lo = m + 1; } else hi = m - 1; }
+  return ans;
+}
+function addMonths(s, n) {
+  let y = +s.slice(0, 4), m = +s.slice(5, 7) - 1 + n;
+  y += Math.floor(m / 12); m = ((m % 12) + 12) % 12;
+  const dim = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+  return iso(Date.UTC(y, m, Math.min(+s.slice(8, 10), dim)));
+}
+function startIndex(range) {
+  const last = D.dates[LAST];
+  const back = { "1W": () => iso(utc(last) - 7 * 864e5), "1M": () => addMonths(last, -1), "3M": () => addMonths(last, -3),
+    "6M": () => addMonths(last, -6), "YTD": () => (+last.slice(0, 4) - 1) + "-12-31", "1Y": () => addMonths(last, -12),
+    "2Y": () => addMonths(last, -24), "3Y": () => addMonths(last, -36), "5Y": () => addMonths(last, -60), "10Y": () => addMonths(last, -120) };
+  if (range === "1D") return LAST - 1;
+  if (!back[range]) return 0;
+  return Math.max(0, idxOnOrBefore(back[range]()));
+}
+const pad2 = n => String(n).padStart(2, "0");
+function thirdFriday(y, m) {
+  const first = new Date(Date.UTC(y, m - 1, 1)).getUTCDay();
+  return `${y}-${pad2(m)}-${pad2(1 + ((5 - first + 7) % 7) + 14)}`;
+}
+
+// ------------------------------------------------------------------ distributions
+const DIVS = {};
+for (const s of [...CONS, BENCH]) {
+  const m = new Map();
+  for (const [d, amt] of D.dividends[s]) {
+    if (d < D.dates[0] || d > D.dates[LAST]) continue;
+    let k = dateIdx.get(d);
+    if (k === undefined) k = idxOnOrBefore(d) + 1;  // ex-date off-calendar: next session
+    if (k > 0 && k < N) m.set(k, (m.get(k) || 0) + amt);
+  }
+  DIVS[s] = m;
+}
+const memo = {};
+function factor(s, total) {
+  const key = "f" + s + total;
+  if (memo[key]) return memo[key];
+  const px = D.close[s], m = DIVS[s], A = new Float64Array(N);
+  let a = 1;
+  for (let k = 0; k < N; k++) {
+    const amt = m.get(k);
+    if (amt && (total || amt / px[k - 1] > SPECIAL)) a *= 1 + amt / px[k];
+    A[k] = a;
+  }
+  return (memo[key] = A);
+}
+function ttmYield(s) {
+  const last = D.dates[LAST], from = iso(utc(last) - 365 * 864e5), px = D.close[s];
+  let sum = 0;
+  for (const [d, amt] of D.dividends[s]) {
+    if (d <= from || d > last) continue;
+    const k = dateIdx.get(d);
+    if (k && amt / px[k - 1] > SPECIAL) continue;
+    sum += amt;
+  }
+  return sum / px[LAST];
+}
+
+// ------------------------------------------------------------------ index engine
+function rebalanceFlags(schedule) {
+  const key = "r" + schedule;
+  if (memo[key]) return memo[key];
+  const months = new Set(SCHEDULES[schedule]), flags = new Uint8Array(N);
+  for (let k = 1; k < N; k++) {
+    const d = D.dates[k], m = +d.slice(5, 7);
+    if (!months.has(m)) continue;
+    const tf = thirdFriday(+d.slice(0, 4), m), next = D.dates[k + 1];
+    if (d <= tf && (next === undefined ? d === tf : next > tf)) flags[k] = 1;
+  }
+  return (memo[key] = flags);
+}
+
+function engine(schedule, total) {
+  const key = "e" + schedule + total;
+  if (memo[key]) return memo[key];
+  const F = CONS.map(s => factor(s, total));
+  const L = CONS.map((s, i) => Float64Array.from(D.close[s], (p, k) => p * F[i][k]));
+  const flags = rebalanceFlags(schedule);
+  const level = new Float64Array(N), units = new Float64Array(N * NC), reb = [];
+  level[0] = 100;
+  for (let i = 0; i < NC; i++) units[i] = 100 / NC / L[i][0];
+  for (let k = 1; k < N; k++) {
+    const o = (k - 1) * NC, p = k * NC;
+    let v = 0;
+    for (let i = 0; i < NC; i++) v += units[o + i] * L[i][k];
+    level[k] = v;
+    if (flags[k]) { for (let i = 0; i < NC; i++) units[p + i] = v / NC / L[i][k]; reb.push(k); }
+    else for (let i = 0; i < NC; i++) units[p + i] = units[o + i];
+  }
+  const intra = {};
+  for (const kind of ["1D", "1W", "1M"]) {
+    const S = D.intraday[kind], out = new Float64Array(S.t.length);
+    for (let j = 0; j < S.t.length; j++) {
+      const k = S.k[j], o = (k - 1) * NC;
+      let v = 0;
+      for (let i = 0; i < NC; i++) v += units[o + i] * S.px[CONS[i]][j] * F[i][k];
+      out[j] = v;
+    }
+    intra[kind] = out;
+  }
+  let open = 0;
+  for (let i = 0; i < NC; i++) {
+    const t = D.tail[CONS[i]];
+    open += units[(LAST - 1) * NC + i] * t.open[t.open.length - 1] * F[i][LAST];
+  }
+  const weights = CONS.map((s, i) => units[LAST * NC + i] * L[i][LAST] / level[LAST]);
+  const drifted = k => CONS.map((s, i) => units[(k - 1) * NC + i] * L[i][k] / level[k]);
+  return (memo[key] = { F, L, level, units, reb, intra, open, weights, drifted, flags });
+}
+
+// ------------------------------------------------------------------ instruments
+function preMap(s) {
+  const key = "p" + s;
+  if (!memo[key]) memo[key] = new Map(D.pre[s].dates.map((d, i) => [d, D.pre[s].close[i]]));
+  return memo[key];
+}
+function atDate(inst, d) {
+  const k = dateIdx.get(d);
+  if (k !== undefined) return inst.daily[k];
+  return inst.pre ? preMap(inst.id).get(d) : undefined;
+}
+function stock(s, total = false) {
+  const key = "i" + s + total;
+  if (memo[key]) return memo[key];
+  const F = factor(s, total);
+  const daily = total ? Float64Array.from(D.close[s], (p, k) => p * F[k]) : Float64Array.from(D.close[s]);
+  const intra = {};
+  for (const kind of ["1D", "1W", "1M"]) {
+    const S = D.intraday[kind];
+    intra[kind] = Float64Array.from(S.px[s], (p, j) => (total ? p * F[S.k[j]] : p));
+  }
+  return (memo[key] = { id: s, kind: s === BENCH ? "etf" : "stock", name: D.meta[s].name,
+    sub: `${D.meta[s].exchange} · ${D.meta[s].currency}`, daily, intra, pre: total ? null : D.pre[s] });
+}
+function eq7(schedule = state.schedule, total = state.total) {
+  const e = engine(schedule, total);
+  return { id: TICKER, kind: "index", name: NAME, sub: `Custom index · USD${total ? " · Total return" : ""}`,
+    daily: e.level, intra: e.intra, pre: null, e };
+}
+// Subject + benchmark for a page. Total return applies to the EQ7 page only.
+function pair(id) {
+  if (id === TICKER) return { inst: eq7(), bench: stock(BENCH, state.total) };
+  if (id === BENCH) return { inst: stock(BENCH), bench: eq7(state.schedule, false) };
+  return { inst: stock(id), bench: stock(BENCH) };
+}
+
+// ------------------------------------------------------------------ chart windows
+function buildWindow(inst, bench, range, compare) {
+  const W = { range, ys: [], bs: [], ts: [], kind: "date" };
+  const push = (y, b, t) => { W.ys.push(y); W.bs.push(b); W.ts.push(t); };
+  if (range === "1D") {
+    const S = D.intraday["1D"];
+    if (S.t.length && S.k[S.k.length - 1] === LAST) {
+      W.kind = "1D";
+      for (let j = 0; j < S.t.length; j++) if (S.k[j] === LAST) push(inst.intra["1D"][j], bench.intra["1D"][j], S.t[j] * 1000);
+      W.base = inst.daily[LAST - 1]; W.baseB = bench.daily[LAST - 1];
+      W.tOpen = W.ts[0]; W.tClose = W.tOpen + 390 * 60e3;
+      return W;
+    }
+  }
+  const k0 = startIndex(range);
+  if (range === "1W" || range === "1M") {
+    const S = D.intraday[range], have = new Set(S.k);
+    let covered = k0 < LAST;
+    for (let k = k0 + 1; covered && k <= LAST; k++) covered = have.has(k);
+    if (covered) {
+      W.kind = "time";
+      push(inst.daily[k0], bench.daily[k0], etClose(D.dates[k0]));
+      for (let j = 0; j < S.t.length; j++) if (S.k[j] > k0) push(inst.intra[range][j], bench.intra[range][j], S.t[j] * 1000);
+      W.base = W.ys[0]; W.baseB = W.bs[0];
+      return W;
+    }
+  }
+  const weekly = range === "5Y" || range === "10Y" || range === "ALL";
+  W.kind = weekly ? "week" : "date";
+  if (range === "ALL" && inst.pre) {
+    for (let i = 0; i < inst.pre.dates.length; i++) {
+      const d = inst.pre.dates[i], b = atDate(bench, d);
+      if (compare && b === undefined) continue;
+      push(inst.pre.close[i], b, utc(d));
+    }
+  }
+  for (let k = k0; k <= LAST; k++) {
+    if (weekly && k !== k0 && k !== LAST && weekId(k) === weekId(k + 1)) continue;
+    push(inst.daily[k], bench.daily[k], utc(D.dates[k]));
+  }
+  W.base = W.ys[0]; W.baseB = W.bs[0];
+  return W;
+}
+function rangeLabel(W) { return W.range === "ALL" ? "Since " + fMonthYear.format(W.ts[0]) : RANGE_LABEL[W.range]; }
+function pointLabel(W, i) {
+  if (W.kind === "1D") return fTime.format(W.ts[i]);
+  if (W.kind === "time") return fDayTime.format(W.ts[i]);
+  return fDate.format(W.ts[i]);
+}
+function spanLabel(W, a, b) {
+  if (W.kind === "1D") return `${fTime.format(W.ts[a])} – ${fTime.format(W.ts[b])}`;
+  if (W.kind === "time") return `${fShortDT.format(W.ts[a])} – ${fShortDT.format(W.ts[b])}`;
+  const ya = new Date(W.ts[a]).getUTCFullYear(), yb = new Date(W.ts[b]).getUTCFullYear();
+  return ya === yb ? `${fMonthDay.format(W.ts[a])} – ${fDate.format(W.ts[b])}` : `${fDate.format(W.ts[a])} – ${fDate.format(W.ts[b])}`;
+}
+
+// ------------------------------------------------------------------ scales and ticks
+function niceStep(raw) {
+  const p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+  return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p;
+}
+function decimalsOf(step) { let d = 0; while (d < 6 && Math.abs(Math.round(step * 10 ** d) - step * 10 ** d) > 1e-6) d++; return d; }
+const LOG_RANGES = new Set(["2Y", "5Y", "10Y", "ALL"]);
+const fSig = new Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 });
+// Ticks for a log axis between lo and hi (values, or % gains when rebased). Round candidates are
+// taken roundest first (1s, then 5s, then 2s and 3s) and kept only when they clear the ones already
+// placed by 22px, so labels stay round and evenly readable whatever the span.
+function logTicks(lo, hi, pctMode, py) {
+  const cands = [];
+  const add = (v, pri) => { if (v >= lo && v <= hi) cands.push({ v, pri }); };
+  if (pctMode) {
+    add(0, -1);
+    for (let e = 0; e <= 7; e++) [[1, 0], [5, 1], [2, 2], [3, 3]].forEach(([m, p]) => add(m * 10 ** e, p));
+    [[50, 0], [10, 0], [20, 1], [30, 2], [5, 2], [80, 3], [2, 3], [1, 3]].forEach(([m, p]) => add(-m, p));
+  } else {
+    for (let e = Math.floor(Math.log10(lo)) - 1; e <= Math.ceil(Math.log10(hi)); e++)
+      [[1, 0], [5, 1], [2, 2], [3, 3], [1.5, 4], [7, 4]].forEach(([m, p]) => add(+(m * 10 ** e).toPrecision(6), p));
+  }
+  const kept = [];
+  for (const c of cands.sort((x, y) => x.pri - y.pri || y.v - x.v)) {
+    const y = py(c.v);
+    if (kept.every(k => Math.abs(k.y - y) >= 22)) kept.push({ v: c.v, y });
+  }
+  return kept.map(k => k.v).sort((x, y) => x - y);
+}
+function yScale(min, max) {
+  if (!(max > min)) { const c = min || 1; min = c - Math.abs(c) * .01 - 1e-9; max = c + Math.abs(c) * .01 + 1e-9; }
+  const pad = (max - min) * .1, lo = min - pad, hi = max + pad, step = niceStep((hi - lo) / 4), ticks = [];
+  for (let v = Math.ceil(lo / step) * step; v <= hi + step * 1e-6; v += step) ticks.push(+v.toFixed(10));
+  return { lo, hi, ticks, dec: decimalsOf(step) };
+}
+function xTicks(W, X, minGap) {
+  const n = W.ts.length, out = [];
+  if (W.kind === "1D") {
+    for (let h = 10; h <= 15; h++) {
+      const t = W.tOpen + (h * 60 - 570) * 60e3;
+      out.push({ x: X(t), label: String(h > 12 ? h - 12 : h) });
+    }
+    return out;
+  }
+  const cands = [];
+  let prev = null;
+  for (let i = 0; i < n; i++) {
+    let key, label, unit = 1;
+    if (W.kind === "time") {  // point 0 is the prior session's close, so the first boundary is point 1
+      const p = etParts(W.ts[i]);
+      if (W.range === "1W") { key = p.date; label = fWeekday.format(W.ts[i]); }
+      else { key = Math.floor((utc(p.date) / 864e5 + 3) / 7); label = fMonthDay.format(utc(p.date)); }
+    } else {
+      const dt = new Date(W.ts[i]), y = dt.getUTCFullYear(), m = dt.getUTCMonth();
+      if (W.kind === "week") { key = y; label = String(y); unit = y; }
+      else { key = y * 12 + m; label = m === 0 ? String(y) : fMonth.format(W.ts[i]); unit = m; }
+    }
+    if (i > 0 && key !== prev) cands.push({ i, label, unit });
+    prev = key;
+  }
+  const steps = W.kind === "week" ? [1, 2, 5, 10] : W.kind === "time" ? [1, 2, 3, 5] : [1, 2, 3, 6, 12];
+  for (const s of steps) {
+    const kept = cands.filter((c, j) => (W.kind === "time" ? j % s === 0 : c.unit % s === 0));
+    let ok = true;
+    for (let j = 1; j < kept.length; j++) if (X(kept[j].i) - X(kept[j - 1].i) < minGap) { ok = false; break; }
+    if (ok || s === steps[steps.length - 1]) { for (const c of kept) out.push({ x: X(c.i), label: c.label }); break; }
+  }
+  return out;
+}
+
+// ------------------------------------------------------------------ chart
+const SVGNS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+
+function Chart(host, onSelect) {
+  const ch = { W: null, compare: false, log: false, sel: null };
+  let svg, geo, cursorG, kb = null;
+
+  ch.set = (W, compare, log) => { ch.W = W; ch.compare = compare; ch.log = log; ch.sel = null; kb = null; draw(true); };
+  ch.redraw = () => draw(false);
+
+  function values() {
+    const W = ch.W;
+    if (!ch.compare) return { a: W.ys, b: null };
+    return { a: W.ys.map(y => (y / W.base - 1) * 100), b: W.bs.map(y => (y / W.baseB - 1) * 100) };
+  }
+
+  function draw(animate) {
+    const W = ch.W;
+    if (!W) return;
+    const width = Math.max(240, Math.round(host.clientWidth || 340));
+    const height = width >= 560 ? 300 : 248;
+    const top = 26, bottom = 24, left = 0;
+    const ph = height - top - bottom;
+    const { a, b } = values();
+    const ref = ch.compare ? 0 : W.kind === "1D" ? W.base : null;
+    // On a log axis the plot works in ln(value), or ln(1 + %) when lines are rebased.
+    const log = ch.log && LOG_RANGES.has(W.range);
+    const T = !log ? v => v : ch.compare ? v => Math.log(1 + v / 100) : v => Math.log(v);
+    let mn = Infinity, mx = -Infinity;
+    for (const v of a) { const u = T(v); if (u < mn) mn = u; if (u > mx) mx = u; }
+    if (b) for (const v of b) { const u = T(v); if (u < mn) mn = u; if (u > mx) mx = u; }
+    if (ref !== null) { mn = Math.min(mn, T(ref)); mx = Math.max(mx, T(ref)); }
+    let ys;
+    if (log) {
+      const pad = (mx - mn || 1) * .1, lo = mn - pad, hi = mx + pad;
+      const toVal = u => (ch.compare ? (Math.exp(u) - 1) * 100 : Math.exp(u));
+      const py = v => ph * (1 - (T(v) - lo) / (hi - lo));
+      let ticks = logTicks(toVal(lo), toVal(hi), ch.compare, py);
+      if (ticks.length < 2) ticks = yScale(toVal(mn), toVal(mx)).ticks.filter(v => (ch.compare ? v > -100 : v > 0) && T(v) >= lo && T(v) <= hi);
+      ys = { lo, hi, ticks, dec: 2 };
+    } else ys = yScale(mn, mx);
+    const Y = v => top + ph * (1 - (T(v) - ys.lo) / (ys.hi - ys.lo));
+    const yLabelFmt = log
+      ? (v => (ch.compare ? signed(v, Math.abs(v) < 10 && v % 1 ? 1 : 0) + "%" : fSig.format(v)))
+      : (v => (ch.compare ? signed(v, Math.min(ys.dec, 2)) + "%" : num(v, Math.min(ys.dec, 4))));
+    const yLabels = ys.ticks.map(yLabelFmt);
+    // The right gutter fits the longest y label.
+    const right = Math.max(40, Math.ceil(Math.max(0, ...yLabels.map(s => s.length)) * 6.6) + 8);
+    const pw = width - left - right;
+    const n = a.length;
+    const X = W.kind === "1D" ? (t => left + pw * (t - W.tOpen) / (W.tClose - W.tOpen)) : (i => left + (n > 1 ? pw * i / (n - 1) : pw / 2));
+    const xOf = i => (W.kind === "1D" ? X(W.ts[i]) : X(i));
+    geo = { width, height, top, bottom, left, pw, ph, X, Y, xOf, a, b, n };
+
+    host.textContent = "";
+    svg = el("svg", { viewBox: `0 0 ${width} ${height}`, width, height, "aria-hidden": "true" }, host);
+    const up = a[n - 1] >= (ch.compare ? 0 : W.base);
+    const tone = up ? "up" : "down";
+
+    const defs = el("defs", {}, svg);
+    const grad = el("linearGradient", { id: "fill-" + tone, x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+    el("stop", { offset: "0", class: "stop-" + tone, "stop-opacity": ".22" }, grad);
+    el("stop", { offset: "1", class: "stop-" + tone, "stop-opacity": "0" }, grad);
+
+    ys.ticks.forEach((t, j) => {
+      const y = Math.round(Y(t)) + .5;
+      el("line", { class: "gridline", x1: left, x2: left + pw, y1: y, y2: y }, svg);
+      const tx = el("text", { class: "axis", x: width, y: y + 4, "text-anchor": "end" }, svg);
+      tx.textContent = yLabels[j];
+    });
+    for (const t of xTicks(W, X, 46)) {
+      const x = Math.round(t.x) + .5;
+      if (x > left + pw - 8) continue;
+      el("line", { class: "gridline", x1: x, x2: x, y1: top, y2: top + ph }, svg);
+      const tx = el("text", { class: "axis", x: x + 4, y: height - 6 }, svg);
+      tx.textContent = t.label;
+    }
+    if (ref !== null) el("line", { class: "ref", x1: left, x2: left + pw, y1: Y(ref), y2: Y(ref) }, svg);
+
+    const path = vals => {
+      let d = "";
+      for (let i = 0; i < vals.length; i++) d += (i ? "L" : "M") + xOf(i).toFixed(1) + " " + Y(vals[i]).toFixed(1);
+      return d;
+    };
+    const g = el("g", { class: animate ? "fade" : "" }, svg);
+    const dA = path(a);
+    el("path", { d: `${dA}L${xOf(n - 1).toFixed(1)} ${top + ph}L${xOf(0).toFixed(1)} ${top + ph}Z`, fill: `url(#fill-${tone})`, stroke: "none" }, g);
+    if (b) el("path", { class: "line bench", d: path(b) }, g);
+    el("path", { class: "line " + tone, d: dA }, g);
+    if (b) el("circle", { class: "dot bench", cx: xOf(n - 1), cy: Y(b[n - 1]), r: 4 }, g);
+    el("circle", { class: "dot " + tone, cx: xOf(n - 1), cy: Y(a[n - 1]), r: 4 }, g);
+    cursorG = el("g", {}, svg);
+    geo.tone = tone;
+    paintSelection();
+  }
+
+  function nearest(clientX) {
+    const r = host.getBoundingClientRect(), x = (clientX - r.left) * (geo.width / r.width);
+    const { n, xOf } = geo;
+    let lo = 0, hi = n - 1;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (xOf(m) < x) lo = m; else hi = m; }
+    return Math.abs(xOf(lo) - x) <= Math.abs(xOf(hi) - x) ? lo : hi;
+  }
+
+  function paintSelection() {
+    if (!cursorG) return;
+    cursorG.textContent = "";
+    const s = ch.sel;
+    if (s) {
+      const { top, ph, xOf, Y, a, b, width } = geo;
+      const idx = s.i1 === undefined ? [s.i] : [s.i0, s.i1];
+      if (idx.length === 2) el("rect", { class: "span", x: xOf(idx[0]), y: top, width: Math.max(1, xOf(idx[1]) - xOf(idx[0])), height: ph }, cursorG);
+      for (const i of idx) {
+        const x = Math.round(xOf(i)) + .5;
+        el("line", { class: "cursor", x1: x, x2: x, y1: top - 4, y2: top + ph }, cursorG);
+        if (b) el("circle", { class: "dot bench", cx: xOf(i), cy: Y(b[i]), r: 4.5 }, cursorG);
+        el("circle", { class: "dot " + geo.tone, cx: xOf(i), cy: Y(a[i]), r: 4.5 }, cursorG);
+      }
+      const label = idx.length === 2 ? spanLabel(ch.W, idx[0], idx[1]) : pointLabel(ch.W, idx[0]);
+      const cx = idx.length === 2 ? (xOf(idx[0]) + xOf(idx[1])) / 2 : xOf(idx[0]);
+      const tx = el("text", { class: "tip", x: cx, y: 13, "text-anchor": "middle" }, cursorG);
+      tx.textContent = label;
+      const w = tx.getComputedTextLength ? tx.getComputedTextLength() : 80;
+      const reserve = LOG_RANGES.has(ch.W.range) ? 46 : 0;  // keep clear of the Log toggle
+      tx.setAttribute("x", Math.max(w / 2, Math.min(cx, width - reserve - w / 2)));
+    }
+    onSelect(ch.sel);
+  }
+
+  // pointers: hover or one finger scrubs; a mouse drag or two fingers measure between two points
+  const ptrs = new Map();
+  let hover = null, raf = 0;
+  function schedule() { if (!raf) raf = requestAnimationFrame(() => { raf = 0; resolve(); }); }
+  function resolve() {
+    if (!geo) return;
+    const touches = [...ptrs.values()].filter(p => p.type !== "mouse");
+    const mouse = [...ptrs.values()].find(p => p.type === "mouse");
+    let sel = null;
+    if (touches.length >= 2) { const i = nearest(touches[0].x), j = nearest(touches[1].x); sel = i === j ? { i } : { i0: Math.min(i, j), i1: Math.max(i, j) }; }
+    else if (touches.length === 1) sel = { i: nearest(touches[0].x) };
+    else if (mouse) {
+      const i = nearest(mouse.x), j = nearest(mouse.x0);
+      sel = Math.abs(mouse.x - mouse.x0) > 4 && i !== j ? { i0: Math.min(i, j), i1: Math.max(i, j) } : { i };
+    } else if (hover !== null) sel = { i: nearest(hover) };
+    else if (kb !== null) sel = { i: kb, kb: true };
+    ch.sel = sel;
+    paintSelection();
+  }
+  host.addEventListener("pointerdown", e => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    ptrs.set(e.pointerId, { x: e.clientX, x0: e.clientX, type: e.pointerType });
+    try { host.setPointerCapture(e.pointerId); } catch (err) { /* capture unsupported */ }
+    schedule();
+  });
+  host.addEventListener("pointermove", e => {
+    const p = ptrs.get(e.pointerId);
+    if (p) p.x = e.clientX; else if (e.pointerType === "mouse") hover = e.clientX;
+    schedule();
+  });
+  const end = e => { ptrs.delete(e.pointerId); if (e.pointerType === "mouse" && e.type === "pointerup") hover = e.clientX; schedule(); };
+  host.addEventListener("pointerup", end);
+  host.addEventListener("pointercancel", end);
+  host.addEventListener("pointerleave", e => { if (e.pointerType === "mouse" && !ptrs.size) { hover = null; schedule(); } });
+  host.addEventListener("keydown", e => {
+    if (!geo) return;
+    const step = e.shiftKey ? Math.max(1, Math.round(geo.n / 20)) : 1;
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      kb = kb === null ? geo.n - 1 : Math.min(geo.n - 1, Math.max(0, kb + (e.key === "ArrowLeft" ? -step : step)));
+    } else if (e.key === "Home") kb = 0;
+    else if (e.key === "End") kb = geo.n - 1;
+    else if (e.key === "Escape") kb = null;
+    else return;
+    e.preventDefault();
+    schedule();
+  });
+  host.addEventListener("blur", () => { kb = null; schedule(); });
+  return ch;
+}
+
+// ------------------------------------------------------------------ statistics
+function dailyReturns(arr, k0, k1) {
+  const r = [];
+  for (let k = k0 + 1; k <= k1; k++) r.push(arr[k] / arr[k - 1] - 1);
+  return r;
+}
+function moments(a, b) {
+  const n = a.length, ma = a.reduce((s, v) => s + v, 0) / n, mb = b ? b.reduce((s, v) => s + v, 0) / n : 0;
+  let va = 0, vb = 0, cov = 0;
+  for (let i = 0; i < n; i++) { const da = a[i] - ma; va += da * da; if (b) { const db = b[i] - mb; vb += db * db; cov += da * db; } }
+  return { vol: Math.sqrt(va / (n - 1) * 252), beta: b ? cov / vb : NaN, corr: b ? cov / Math.sqrt(va * vb) : NaN };
+}
+function maxDrawdown(arr, k0, k1) {
+  let peak = arr[k0], dd = 0;
+  for (let k = k0; k <= k1; k++) { if (arr[k] > peak) peak = arr[k]; dd = Math.min(dd, arr[k] / peak - 1); }
+  return dd;
+}
+function cagr(arr, k0, k1) { return Math.pow(arr[k1] / arr[k0], 365.25 / (dayNum[k1] - dayNum[k0])) - 1; }
+function stockDay(s) {
+  const t = D.tail[s], j = t.open.length - 1, k52 = idxOnOrBefore(addMonths(D.dates[LAST], -12)) + 1, j52 = j - (LAST - k52);
+  let hi = -Infinity, lo = Infinity;
+  for (let i = Math.max(0, j52); i <= j; i++) { if (t.high[i] > hi) hi = t.high[i]; if (t.low[i] < lo) lo = t.low[i]; }
+  const vols = t.volume.slice(-63).filter(v => v != null);
+  return { open: t.open[j], high: t.high[j], low: t.low[j], vol: t.volume[j], avgVol: vols.reduce((a, b) => a + b, 0) / vols.length, hi52: hi, lo52: lo };
+}
+function statsFor(id) {
+  const k1y = startIndex("1Y"), { inst, bench } = pair(id), a = inst.daily;
+  const risk = moments(dailyReturns(a, k1y, LAST), dailyReturns(bench.daily, k1y, LAST));
+  const dd = maxDrawdown(a, 0, LAST), yld = id === TICKER ? null : ttmYield(id);
+  const dash = "—";
+  if (id === TICKER) {
+    const e = inst.e, day = e.intra["1D"];
+    let hi = -Infinity, lo = Infinity;
+    for (const v of day) { if (v > hi) hi = v; if (v < lo) lo = v; }
+    let h52 = -Infinity, l52 = Infinity;
+    for (let k = k1y + 1; k <= LAST; k++) { if (a[k] > h52) h52 = a[k]; if (a[k] < l52) l52 = a[k]; }
+    const y = CONS.reduce((s, c, i) => s + e.weights[i] * ttmYield(c), 0);
+    return [["Open", num(e.open)], ["High", num(hi)], ["Low", num(lo)],
+      ["Prev Close", num(a[LAST - 1])], ["Yield", plain(y)], ["CAGR", plain(cagr(a, 0, LAST), 1)],
+      ["52W H", num(h52)], ["52W L", num(l52)], ["Max DD", pct(dd, 1)],
+      ["Beta", NF[2].format(risk.beta)], ["Corr", NF[2].format(risk.corr)], ["Volatility", plain(risk.vol, 1)]];
+  }
+  const d = stockDay(id);
+  const common = [["Open", num(d.open)], ["High", num(d.high)], ["Low", num(d.low)],
+    ["Vol", compact(d.vol)], ["Avg Vol", compact(d.avgVol)], ["Yield", yld > 0 ? plain(yld) : dash],
+    ["52W H", num(d.hi52)], ["52W L", num(d.lo52)], ["Max DD", pct(dd, 1)]];
+  if (id === BENCH) return common.concat([["CAGR", plain(cagr(a, 0, LAST), 1)], ["Corr", NF[2].format(risk.corr)], ["Volatility", plain(risk.vol, 1)]]);
+  const w = eq7().e.weights[CONS.indexOf(id)];
+  return common.concat([["Beta", NF[2].format(risk.beta)], ["Weight", plain(w)], ["Volatility", plain(risk.vol, 1)]]);
+}
+const PERIODS = ["1M", "3M", "6M", "YTD", "1Y", "3Y", "5Y", "10Y", "ALL"];
+function perfRows(id) {
+  const { inst, bench } = pair(id);
+  return PERIODS.map(p => {
+    const k0 = startIndex(p), years = (dayNum[LAST] - dayNum[k0]) / 365.25;
+    const ann = state.perf === "ann" && years >= .999;
+    const f = arr => { const r = arr[LAST] / arr[k0] - 1; return ann ? Math.pow(1 + r, 1 / years) - 1 : r; };
+    const ra = f(inst.daily), rb = f(bench.daily);
+    return { p: p === "ALL" ? "Since " + fMonthYear.format(utc(D.dates[0])) : p, ra, rb, ann };
+  });
+}
+
+// ------------------------------------------------------------------ small renderers
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function sparkSVG(vals, base, w = 64, h = 32) {
+  let mn = base, mx = base;
+  for (const v of vals) { if (v < mn) mn = v; if (v > mx) mx = v; }
+  if (mx === mn) { mx += 1; mn -= 1; }
+  const Y = v => (2 + (h - 4) * (1 - (v - mn) / (mx - mn))).toFixed(1);
+  let d = "";
+  for (let i = 0; i < vals.length; i++) d += (i ? "L" : "M") + (w * i / (vals.length - 1)).toFixed(1) + " " + Y(vals[i]);
+  const tone = dir(vals[vals.length - 1] - base);
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" aria-hidden="true"><line class="ref" x1="0" x2="${w}" y1="${Y(base)}" y2="${Y(base)}"/><path class="line ${tone}" style="stroke-width:1.5" d="${d}"/></svg>`;
+}
+function seg(id, options, current, label) {
+  return `<div class="seg" role="group" aria-label="${esc(label)}">${options.map(([v, t]) =>
+    `<button type="button" data-seg="${id}" data-v="${v}" aria-pressed="${v === current}">${esc(t)}</button>`).join("")}</div>`;
+}
+function nextRebalance(schedule) {
+  const months = SCHEDULES[schedule];
+  if (!months.length) return null;
+  const last = D.dates[LAST];
+  let y = +last.slice(0, 4), m = +last.slice(5, 7);
+  for (let i = 0; i < 24; i++) {
+    if (months.includes(m)) { const tf = thirdFriday(y, m); if (tf > last) return tf; }
+    if (++m > 12) { m = 1; y++; }
+  }
+  return null;
+}
+
+// ------------------------------------------------------------------ views
+const app = document.getElementById("app");
+let chart = null, current = null;
+
+function route() {
+  const h = location.hash.replace(/^#/, "").toUpperCase();
+  return CONS.includes(h) || h === BENCH ? h : TICKER;
+}
+
+function render() {
+  const id = route();
+  const { inst, bench } = pair(id);
+  const isIdx = id === TICKER, benchName = isIdx ? BENCH : id === BENCH ? TICKER : BENCH;
+  const tabs = RANGES.map(r => `<button type="button" class="tab" role="tab" data-range="${r}" aria-selected="${r === state.range}">${r}</button>`).join("");
+  const back = isIdx ? "" : `<a class="back" href="#eq7"><svg viewBox="0 0 12 20" aria-hidden="true"><path d="M10 2 2 10l8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>${TICKER}</a>`;
+
+  app.innerHTML = `
+    ${back}
+    <header>
+      <h1 class="sym">${esc(inst.id)}</h1>
+      <div class="name">${esc(inst.name)}</div>
+      <div class="exch">${esc(inst.sub)}</div>
+      <div class="quote">
+        <div class="price" id="price"></div>
+        <div class="chg" id="chg"><span class="v"></span><span class="when"></span></div>
+        <div class="status" id="status"></div>
+      </div>
+    </header>
+    <div class="tabs" role="tablist" aria-label="Chart range">${tabs}</div>
+    <div class="legend" id="legend"${state.compare ? "" : " hidden"}></div>
+    <div class="chartwrap">
+      <div class="chart" id="chart" tabindex="0" role="img"></div>
+      <button type="button" class="logbtn" id="logbtn" aria-pressed="${state.log}" title="Logarithmic scale: equal heights for equal percentage moves" hidden>Log</button>
+    </div>
+    <label class="cmp" for="cmp"><span>Compare with ${benchName}<small>Both rebased to 0% at the start of the range</small></span>
+      <input type="checkbox" class="switch" id="cmp" role="switch"${state.compare ? " checked" : ""}></label>
+    <div class="stats" id="stats"></div>
+    <div class="dots" id="dots"></div>
+    <section class="section" aria-labelledby="perf-h">
+      <div class="section-head"><div><h2 id="perf-h">Performance</h2><p class="sub">${esc(inst.id)} vs ${benchName}${isIdx && state.total ? ", total return" : ", price return"}</p></div>
+        ${seg("perf", [["cum", "Cumulative"], ["ann", "Annualized"]], state.perf, "Return type")}</div>
+      <div class="tablewrap"><table class="perf" id="perf"></table></div>
+      <p class="note">${state.perf === "ann" ? "Periods under one year are not annualized. " : ""}Returns end at the ${dateLabel(D.dates[LAST])} close.</p>
+    </section>
+    ${isIdx ? holdingsHTML() + aboutHTML() : memberHTML(id)}
+    <footer class="foot">EQ7 is a hypothetical, backtested index, not a fund you can buy. Prices from Yahoo Finance, as of the ${dateLabel(D.dates[LAST])} close${D.generated ? " (snapshot built " + dateLabel(D.generated.slice(0, 10)) + ")" : ""}.</footer>`;
+
+  current = { id, inst, bench };
+  chart = Chart(document.getElementById("chart"), sel => showQuote(sel));
+  updateChart();
+  renderStats(id);
+  renderPerf(id);
+  if (isIdx) renderDrift();
+  wire();
+}
+
+function updateChart() {
+  const { inst, bench } = current;
+  const W = buildWindow(inst, bench, state.range, state.compare);
+  current.W = W;
+  chart.set(W, state.compare, state.log);
+  const lb = document.getElementById("logbtn");
+  lb.hidden = !LOG_RANGES.has(state.range);
+  lb.setAttribute("aria-pressed", String(state.log));
+  const last = W.ys[W.ys.length - 1];
+  document.getElementById("chart").setAttribute("aria-label",
+    `${inst.id} ${rangeLabel(W) || "today"}: ${num(W.base)} to ${num(last)}, ${pct(last / W.base - 1)}` +
+    (state.compare ? `; ${current.bench.id} ${pct(W.bs[W.bs.length - 1] / W.baseB - 1)}` : "") + ". Use arrow keys to read values.");
+}
+
+function showQuote(sel) {
+  const { W, inst } = current;
+  if (!W) return;
+  const n = W.ys.length, priceEl = document.getElementById("price"), chg = document.getElementById("chg"), st = document.getElementById("status");
+  let price, from, to, when, label = "";
+  if (sel && sel.i1 !== undefined) {
+    price = W.ys[sel.i1]; from = W.ys[sel.i0]; to = price; when = ""; label = spanLabel(W, sel.i0, sel.i1);
+  } else if (sel) {
+    price = W.ys[sel.i]; from = W.base; to = price; when = ""; label = pointLabel(W, sel.i);
+  } else {
+    price = W.ys[n - 1]; from = W.base; to = price; when = rangeLabel(W);
+  }
+  const close = D.intraday["1D"].t.length ? D.intraday["1D"].t[D.intraday["1D"].t.length - 1] * 1000 : etClose(D.dates[LAST]);
+  priceEl.textContent = num(price);
+  chg.className = "chg " + dir(to - from);
+  chg.querySelector(".v").textContent = `${signed(to - from)} (${pct(to / from - 1)})`;
+  chg.querySelector(".when").textContent = when;
+  st.textContent = `At Close · ${fMonthDay.format(utc(D.dates[LAST]))}, ${fTime.format(close)} ${zone(close)}`;
+  if (sel && sel.kb) document.getElementById("live").textContent = `${label}: ${inst.id} ${num(price)}, ${pct(to / from - 1)}`;
+  const lg = document.getElementById("legend");
+  if (state.compare) {
+    const i0 = sel && sel.i1 !== undefined ? sel.i0 : null, i1 = sel ? (sel.i1 !== undefined ? sel.i1 : sel.i) : n - 1;
+    const ra = i0 === null ? W.ys[i1] / W.base - 1 : W.ys[i1] / W.ys[i0] - 1;
+    const rb = i0 === null ? W.bs[i1] / W.baseB - 1 : W.bs[i1] / W.bs[i0] - 1;
+    const spread = (ra - rb) * 100;
+    lg.innerHTML = `<span class="key"><i style="background:var(--${dir(W.ys[n - 1] - W.base)}-line)"></i>${esc(current.inst.id)} <b>${pctAuto(ra)}</b></span>` +
+      `<span class="key"><i style="background:var(--bench)"></i>${esc(current.bench.id)} <b>${pctAuto(rb)}</b></span>` +
+      `<span class="key spread">Difference <b>${signed(spread, Math.abs(spread) >= 1000 ? 0 : Math.abs(spread) >= 100 ? 1 : 2)} pts</b></span>`;
+  }
+}
+
+function renderStats(id) {
+  const items = statsFor(id), pages = [items.slice(0, 6), items.slice(6, 12)];
+  const host = document.getElementById("stats"), dots = document.getElementById("dots");
+  host.innerHTML = pages.map((p, i) => `<div class="page" role="group" aria-label="Statistics ${i + 1} of 2">${p.map(([k, v]) =>
+    `<div class="stat"><span class="k">${esc(k)}</span><span class="v">${esc(v)}</span></div>`).join("")}</div>`).join("");
+  dots.innerHTML = pages.map((p, i) => `<button type="button" aria-label="Statistics page ${i + 1}" aria-current="${i === 0}"></button>`).join("");
+  const sync = () => { const i = Math.round(host.scrollLeft / Math.max(1, host.clientWidth)); [...dots.children].forEach((b, j) => b.setAttribute("aria-current", String(i === j))); };
+  host.addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
+  [...dots.children].forEach((b, j) => b.addEventListener("click", () => host.scrollTo({ left: j * host.clientWidth, behavior: "smooth" })));
+}
+
+function renderPerf(id) {
+  const rows = perfRows(id), benchName = current.bench.id;
+  const cell = v => pctAuto(v);
+  document.getElementById("perf").innerHTML =
+    `<thead><tr><th scope="col"><span class="vh">Period</span></th><th scope="col">${esc(current.inst.id)}</th><th scope="col">${esc(benchName)}</th><th scope="col">+/− pts</th></tr></thead><tbody>` +
+    rows.map(r => {
+      const d = (r.ra - r.rb) * 100, ad = Math.abs(d);
+      return `<tr><td>${esc(r.p)}${r.ann ? " <span class=\"vh\">annualized</span>" : ""}</td><td>${cell(r.ra)}</td><td>${cell(r.rb)}</td>` +
+        `<td class="d ${dir(d)}">${signed(d, ad >= 1000 ? 0 : ad >= 100 ? 1 : 2)}</td></tr>`;
+    }).join("") + "</tbody>";
+}
+
+function holdingsHTML() {
+  const e = eq7().e, order = CONS.map((s, i) => i).sort((a, b) => e.weights[b] - e.weights[a]);
+  const lastReb = e.reb.length ? D.dates[e.reb[e.reb.length - 1]] : null, next = nextRebalance(state.schedule);
+  const sub = state.schedule === "never"
+    ? `Bought at 1/7 each on ${dateLabel(D.dates[0])} and never rebalanced`
+    : `Target ${plain(1 / NC)} each · ${SCHEDULE_LABEL[state.schedule]} rebalance${lastReb ? " · last " + dateLabel(lastReb) : ""}${next ? " · next " + dateLabel(next) : ""}`;
+  const S = D.intraday["1D"];
+  const rows = order.map(i => rowHTML(CONS[i], `${esc(D.meta[CONS[i]].name)}`, e.weights[i], S)).join("");
+  return `<section class="section" aria-labelledby="hold-h"><h2 id="hold-h">Holdings</h2><p class="sub">${sub}</p><ul class="rows">${rows}</ul></section>
+    <section class="section" aria-labelledby="bench-h"><h2 id="bench-h">Benchmark</h2><p class="sub">Nasdaq-100 tracker, shown on the same basis as EQ7</p><ul class="rows">${rowHTML(BENCH, esc(D.meta[BENCH].name), null, S)}</ul></section>`;
+}
+function rowHTML(s, name, weight, S) {
+  const px = D.close[s][LAST], prev = D.close[s][LAST - 1], ch = px - prev, r = px / prev - 1;
+  const vals = []; for (let j = 0; j < S.t.length; j++) if (S.k[j] === LAST) vals.push(S.px[s][j]);
+  const pillText = state.pill === "chg" ? signed(ch) : pct(r);
+  return `<li class="row"><a class="rowlink" href="#${s.toLowerCase()}" aria-label="${esc(D.meta[s].name)}, ${num(px)}, ${pct(r)} on the day${weight !== null ? ", weight " + plain(weight) : ""}"></a>
+    <div class="id"><div class="s">${s}</div><div class="n">${weight !== null ? `<b>${plain(weight)}</b> · ` : ""}${name}</div></div>
+    ${vals.length > 1 ? sparkSVG(vals, prev) : "<span></span>"}
+    <div class="q"><div class="p">${num(px)}</div><button type="button" class="pill ${dir(ch)}" data-pill aria-label="Show ${state.pill === "chg" ? "percent" : "price"} change">${pillText}</button></div></li>`;
+}
+
+function memberHTML(id) {
+  if (id === BENCH) return `<section class="section"><h2>About this comparison</h2><p class="prose">QQQ tracks the Nasdaq-100, a cap-weighted index where the largest companies dominate. EQ7 holds seven names at equal weight, so it shows what an even split across these seven would have done against the broad tech benchmark.</p><p class="prose"><a href="#eq7">Back to EQ7</a></p></section>`;
+  const e = eq7().e, i = CONS.indexOf(id), w = e.weights[i], diff = (w - 1 / NC) * 100;
+  return `<section class="section" aria-labelledby="mem-h"><h2 id="mem-h">In EQ7</h2>
+    <p class="sub">One of seven holdings, targeted at ${plain(1 / NC)}</p>
+    <div class="stats" style="margin-top:8px"><div class="page" style="grid-template-rows:repeat(2,auto)">
+      <div class="stat"><span class="k">Weight now</span><span class="v">${plain(w)}</span></div>
+      <div class="stat"><span class="k">Drift</span><span class="v">${signed(diff)} pts</span></div>
+      <div class="stat"><span class="k">Rebalance</span><span class="v">${SCHEDULE_LABEL[state.schedule]}</span></div>
+      <div class="stat"><span class="k">Day impact</span><span class="v">${signed(contribution(id))} pts</span></div>
+    </div></div>
+    <p class="prose"><a href="#eq7">See EQ7 and all seven holdings</a></p></section>`;
+}
+function contribution(id) {
+  // index points this holding added or removed on the last session
+  const e = eq7().e, i = CONS.indexOf(id);
+  return e.units[(LAST - 1) * NC + i] * (e.L[i][LAST] - e.L[i][LAST - 1]);
+}
+
+function aboutHTML() {
+  return `<section class="section" aria-labelledby="about-h"><h2 id="about-h">About EQ7</h2>
+    <p class="prose">EQ7 holds seven AI-era leaders at equal weight: NVIDIA, Alphabet, Meta, Amazon, ASML, Tesla and TSMC. Each starts at one seventh of the index. Winners grow past ${plain(1 / NC)} between rebalances, then get trimmed back, and laggards get topped up.</p>
+    <div class="card">
+      <div class="ctl"><span class="lbl">Rebalance</span>${seg("schedule", [["monthly", "Monthly"], ["quarterly", "Quarterly"], ["annual", "Annual"], ["never", "Never"]], state.schedule, "Rebalance schedule")}</div>
+      <div class="ctl"><span class="lbl">Returns</span>${seg("total", [["false", "Price"], ["true", "Total return"]], String(state.total), "Return basis")}</div>
+    </div>
+    <h3 class="drift-h">Weight drift, past year</h3>
+    <div class="drift" id="drift" role="img"></div>
+    <div class="drift-legend" aria-hidden="true"><span><i class="k-band"></i>Lowest to highest of the seven</span><span><i class="k-target"></i>Target ${plain(1 / NC)}</span>${state.schedule === "never" ? "" : `<span><i class="k-reb"></i>Rebalance</span>`}</div>
+    <dl class="rules">
+      <dt>Base</dt><dd>100.00 at the ${dateLabel(D.dates[0])} close, the first day all seven traded (Meta's IPO).</dd>
+      <dt>Weights</dt><dd>1/7 each at every rebalance, then they drift with prices.</dd>
+      <dt>Rebalance</dt><dd>At the close of the third Friday of the scheduled months (Mar, Jun, Sep, Dec for quarterly), or the trading day before it when that Friday is a holiday.</dd>
+      <dt>Price return</dt><dd>Dividends are left out, like QQQ's quoted price. Special distributions over 10% of the share price, such as ASML's Nov 2012 capital return, are reinvested so they don't read as losses.</dd>
+      <dt>Total return</dt><dd>Every dividend is reinvested at the ex-date close, for EQ7 and QQQ alike.</dd>
+      <dt>Statistics</dt><dd>Beta, correlation and volatility use one year of daily returns against QQQ (QQQ's correlation is against EQ7). CAGR and max drawdown run from May 2012. EQ7's 52-week range uses closing levels. Yield is the trailing 12 months.</dd>
+      <dt>Fees</dt><dd>None modeled.</dd>
+    </dl>
+    <p class="caveat">This is a backtest. The seven were picked in 2026 knowing how they turned out, so the history before then carries hindsight bias. A basket chosen in 2012 would likely have included names that faded.</p>
+  </section>`;
+}
+
+function renderDrift() {
+  const host = document.getElementById("drift");
+  if (!host) return;
+  const e = eq7().e, k0 = startIndex("1Y") + 1;
+  const lo = [], hi = [];
+  for (let k = k0; k <= LAST; k++) { const w = e.drifted(k); lo.push(Math.min(...w)); hi.push(Math.max(...w)); }
+  const width = Math.max(240, Math.round(host.clientWidth || 340)), height = 156;
+  const left = 42, right = 92, top = 8, bottom = 20;
+  const pw = width - left - right, ph = height - top - bottom, n = lo.length;
+  const ys = yScale(Math.min(...lo, 1 / NC), Math.max(...hi, 1 / NC));
+  const lower = Math.max(0, ys.lo), upper = ys.hi;
+  const X = i => left + pw * i / (n - 1), Y = v => top + ph * (1 - (v - lower) / (upper - lower));
+  let band = "";
+  for (let i = 0; i < n; i++) band += (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(hi[i]).toFixed(1);
+  for (let i = n - 1; i >= 0; i--) band += "L" + X(i).toFixed(1) + " " + Y(lo[i]).toFixed(1);
+  const edge = arr => arr.map((v, i) => (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(v).toFixed(1)).join("");
+  const w = e.weights, iMax = w.indexOf(Math.max(...w)), iMin = w.indexOf(Math.min(...w));
+  let svg = `<svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" aria-hidden="true">`;
+  for (const t of ys.ticks) {
+    if (t < lower - 1e-9 || t > upper + 1e-9) continue;
+    const y = Math.round(Y(t)) + .5;
+    svg += `<line class="gridline" x1="${left}" x2="${left + pw}" y1="${y}" y2="${y}"/><text class="axis" x="${left - 6}" y="${y + 4}" text-anchor="end">${num(t * 100, Math.max(0, ys.dec - 2))}%</text>`;
+  }
+  // Rebalances as full-height lines, so the band visibly pinches back to target at each one.
+  let lastLabel = -Infinity, labeled = 0;
+  const xLabel = (x, text) => {
+    if (x - lastLabel < 44 || x < left + 14 || x > left + pw - 14) return;
+    svg += `<text class="axis" x="${x}" y="${height - 4}" text-anchor="middle">${text}</text>`;
+    lastLabel = x; labeled++;
+  };
+  for (const k of e.reb) {
+    if (k < k0) continue;
+    const x = Math.round(X(k - k0)) + .5;
+    svg += `<line class="reb" x1="${x}" x2="${x}" y1="${top}" y2="${top + ph}"/>`;
+    xLabel(x, fMonthDay.format(utc(D.dates[k])));
+  }
+  if (!labeled) for (let k = k0 + 1; k <= LAST; k++) {
+    const m = +D.dates[k].slice(5, 7);
+    if (m !== +D.dates[k - 1].slice(5, 7) && m % 3 === 1) xLabel(X(k - k0), fMonth.format(utc(D.dates[k])));
+  }
+  svg += `<path class="bandfill" d="${band}Z"/><path class="edge" d="${edge(hi)}"/><path class="edge" d="${edge(lo)}"/>`;
+  svg += `<line class="target" x1="${left}" x2="${left + pw}" y1="${Y(1 / NC)}" y2="${Y(1 / NC)}"/>`;
+  const yMax = Y(hi[n - 1]), yMin = Y(lo[n - 1]), sep = Math.max(0, 14 - (yMin - yMax)) / 2;
+  svg += `<text class="lab" x="${left + pw + 6}" y="${(yMax - sep + 4).toFixed(1)}">${CONS[iMax]} ${plain(w[iMax], 1)}</text>`;
+  svg += `<text class="lab" x="${left + pw + 6}" y="${(yMin + sep + 4).toFixed(1)}">${CONS[iMin]} ${plain(w[iMin], 1)}</text>`;
+  host.innerHTML = svg + "</svg>";
+  host.setAttribute("aria-label", `Over the past year the seven weights ranged as wide as ${plain(Math.min(...lo), 1)} to ${plain(Math.max(...hi), 1)}. Now ${CONS[iMax]} is largest at ${plain(w[iMax], 1)} and ${CONS[iMin]} smallest at ${plain(w[iMin], 1)}.`);
+}
+
+function wire() {
+  app.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => {
+    state.range = b.dataset.range; save();
+    app.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", String(x === b)));
+    updateChart();
+  }));
+  document.getElementById("cmp").addEventListener("change", ev => {
+    state.compare = ev.target.checked; save();
+    document.getElementById("legend").hidden = !state.compare;
+    updateChart();
+  });
+  const lb = document.getElementById("logbtn");
+  lb.addEventListener("pointerdown", ev => ev.stopPropagation());
+  lb.addEventListener("click", () => { state.log = !state.log; save(); updateChart(); });
+  app.querySelectorAll("[data-seg]").forEach(b => b.addEventListener("click", () => {
+    const k = b.dataset.seg, v = b.dataset.v;
+    if (k === "perf") { state.perf = v; save(); keepScroll(render); return; }
+    if (k === "schedule") state.schedule = v;
+    if (k === "total") state.total = v === "true";
+    save();
+    keepScroll(render);
+  }));
+  app.querySelectorAll("[data-pill]").forEach(b => b.addEventListener("click", ev => {
+    ev.preventDefault(); ev.stopPropagation();
+    state.pill = state.pill === "pct" ? "chg" : "pct"; save();
+    keepScroll(render);
+  }));
+}
+function keepScroll(fn) {
+  const y = window.scrollY, focusKey = document.activeElement && document.activeElement.dataset ? JSON.stringify(document.activeElement.dataset) : null;
+  fn();
+  window.scrollTo(0, y);
+  if (focusKey) for (const b of app.querySelectorAll("button")) if (JSON.stringify(b.dataset) === focusKey) { b.focus({ preventScroll: true }); break; }
+}
+
+let lastWidth = 0;
+new ResizeObserver(() => {
+  const w = app.clientWidth;
+  if (Math.abs(w - lastWidth) < 2) return;
+  lastWidth = w;
+  if (chart) chart.redraw();
+  renderDrift();
+}).observe(app);
+window.addEventListener("hashchange", () => { render(); window.scrollTo(0, 0); });
+render();
+
+window.EQ7 = { engine, eq7, stock, statsFor, perfRows, buildWindow, startIndex, state };
+})();
+</script>
