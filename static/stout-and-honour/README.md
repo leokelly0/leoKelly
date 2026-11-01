@@ -1,6 +1,6 @@
 # Stout & Honour
 
-**A gladiator brawler set in an Irish pub.** Mossie Decimus Moriarty, a Kerryman barman, is barred from the Colosseum Bar & Lounge by the new landlord, Commodus O'Dowd, who pours his pint down the sink. He fights his way back through the back rooms of the provinces, one bout at a time. Win the crowd. Mind your pint.
+**A gladiator brawler set in an Irish pub, starring Mike Lynch.** Mike went out for Halloween dressed as a gladiator. By closing time he is one: barred from the Colosseum Bar & Lounge by the new landlord, Commodus O'Dowd, who pours his pint down the sink, he fights his way back through the back rooms of the provinces, one bout at a time, in his own armour. Win the crowd. Mind your pint.
 
 > What we do in the pub echoes in the parish.
 
@@ -37,7 +37,7 @@ Left-handed mode in Settings swaps the stick and the buttons.
 
 ## Modes
 
-- **The Legend of Mossie**: seven story bouts, from the Battle of Germania (a stag party in the lounge) through Zucchabar, the Battle of Carthage (shopping-trolley chariots), Tigris of Galway and his Jack Russell, the Praetorian bouncers, and Commodus himself.
+- **The Legend of Lynchy**: seven story bouts, from the Battle of Germania (a stag party in the lounge) through Zucchabar, the Battle of Carthage (shopping-trolley chariots), Tigris of Galway and his Jack Russell, the Praetorian bouncers, and Commodus himself.
 - **The Lock-In**: endless rounds after closing time, scaling up, with a boss every fifth round. Shh, the Guards.
 - Difficulty: **Shandy**, **Pint of Plain** or **Poitín**.
 

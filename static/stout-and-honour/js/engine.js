@@ -219,7 +219,7 @@ const Sound = (() => {
       if (!ok() || throttled('chant', 2400)) return; const t = ctx.currentTime;
       const pat = kind === 'ole'
         ? [[0, 0.16, 1], [0.2, 0.3, 1.25], [0.62, 0.16, 1], [0.82, 0.3, 1.25], [1.24, 0.16, 1], [1.44, 0.3, 1.25], [1.86, 0.16, 1.1], [2.06, 0.45, 1.0]]
-        : [[0, 0.17, 1], [0.21, 0.15, 0.92], [0.4, 0.34, 1.12], [0.95, 0.17, 1], [1.16, 0.15, 0.92], [1.35, 0.34, 1.12]];
+        : [[0, 0.2, 1], [0.24, 0.32, 1.15], [0.72, 0.2, 1], [0.96, 0.32, 1.15], [1.44, 0.2, 1], [1.68, 0.4, 1.15]]; // LYN-CHY! LYN-CHY! LYN-CHY!
       for (const [o, d, p] of pat) { voices(t + o, d, p, 0.9); tone('sine', 90, 70, t + o, 0.003, 0.12, 0.25, musicBus); }
     },
     bell(times = 3) {
@@ -310,7 +310,7 @@ const Music = (() => {
       },
       chords: { A: ['D', 'G', 'D', 'A', 'D', 'G', 'A', 'D'], B: ['D', 'G', 'D', 'A', 'D', 'G', 'A', 'D'] },
     },
-    reel: { // "Mossie's Reel" — the fights
+    reel: { // "Lynchy's Reel" — the fights
       unit: 0.148, bar: 8, sharps: 'FC', strum: 'reel', drum: 'reel', whistleUp: 12, fiddle: 0.55, form: ['A', 'A', 'B', 'B'],
       parts: {
         A: 'FAA2 BAFA | defd edBA | FAA2 BAFA | BdAF E2DE | FAA2 BAFA | defg afed | BdAF GFEF | D2EF D4',

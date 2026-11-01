@@ -5,7 +5,7 @@
    flow between bouts, and the boot + main loop.
    ===================================================================== */
 
-const SPEAKERS = { narrator: '', marcus: "Marcus O'Reilly", mossie: 'Mossie', commodus: "Commodus O'Dowd", proximo: 'Proximo', cassius: 'Cassius, the quizmaster', tigris: 'Tigris of Galway', crowd: 'The crowd' };
+const SPEAKERS = { narrator: '', marcus: "Marcus O'Reilly", mike: 'Mike Lynch', commodus: "Commodus O'Dowd", proximo: 'Proximo', cassius: 'Cassius, the quizmaster', tigris: 'Tigris of Galway', crowd: 'The crowd' };
 const $ = (id) => document.getElementById(id);
 
 const Flow = {
@@ -130,7 +130,7 @@ const Flow = {
     clearInterval(this.typeTimer);
     this.typeTimer = setInterval(() => { this.typeN += 2; $('dlg-text').textContent = this.typeText.slice(0, this.typeN); if (this.typeN >= this.typeText.length) this.finishType(); }, 26);
     if (who === 'crowd') Sound.sfx.cheer(1);
-    if (who === 'mossie' && /ENTERTAINED/.test(text)) Voice.say('Are you not entertained?', 2);
+    if (who === 'mike' && /ENTERTAINED/.test(text)) Voice.say('Are you not entertained?', 2);
   },
   finishType() { clearInterval(this.typeTimer); this.typing = false; $('dlg-text').textContent = this.typeText; },
   skipDialog() { this.finishType(); this.ci = this.cards ? this.cards.length : 0; this.advance(); },
@@ -149,7 +149,7 @@ const Flow = {
   choose(spare) {
     Store.data.story.spared = spare; Store.save();
     G.hostMood = spare ? 'angry' : 'up';
-    if (spare) { Sound.sfx.cheer(1.5); Sound.sfx.chant('kerry'); } else Sound.sfx.boo();
+    if (spare) { Sound.sfx.cheer(1.5); Sound.sfx.chant('name'); } else Sound.sfx.boo();
     this.result(this.lastResult);
   },
   result(r) {

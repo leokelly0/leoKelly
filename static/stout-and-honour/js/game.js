@@ -9,7 +9,7 @@
 const GRAV = 1600;
 const DODGE_T = 0.32;
 const HOLD_T = 0.24;
-const TAUNTS = ['COME ON SO!', 'GO ON, KERRYMAN!', "WHAT'S THE STORY?", 'AH HERE!', 'YOUR ROUND!', 'GET UP THE YARD!', 'STATE OF YA!', 'YE EEJIT!'];
+const TAUNTS = ['COME ON SO!', 'GO ON, LYNCHY!', 'NICE COSTUME!', "WHAT'S THE STORY?", 'AH HERE!', 'YOUR ROUND!', 'GET UP THE YARD!', 'STATE OF YA!', 'YE EEJIT!'];
 const NULL_BTN = { down: false, pressed: false, released: false };
 const NULL_INPUT = { mx: 0, my: 0, strike: NULL_BTN, shield: NULL_BTN, dodge: NULL_BTN, crowd: NULL_BTN, pause: NULL_BTN };
 
@@ -532,7 +532,7 @@ function finishTaunt(p) {
   G.lastTaunt = G.time; G.stats.taunts++;
   const big = gain >= 11;
   popup(p, big ? 'ARE YOU NOT ENTERTAINED?!' : 'COME ON!', big ? '#ffe08a' : '#f3e6c4', big ? 20 : 16);
-  if (big) { Sound.sfx.cheer(1.2); Sound.sfx.chant('kerry'); G.crowdPulse = 1; } else Sound.sfx.cheer(0.5);
+  if (big) { Sound.sfx.cheer(1.2); Sound.sfx.chant('name'); G.crowdPulse = 1; } else Sound.sfx.cheer(0.5);
   hintDone('taunt');
   p.set('idle');
 }
@@ -863,7 +863,7 @@ function addCraic(amount, tag) {
   G.crowdPulse = Math.max(G.crowdPulse, clamp(amount / 12, 0.1, 1));
   if (before < 90 && G.craic >= 90) {
     banner('THE CRAIC IS NINETY!', Input.usingTouch ? 'Tap UNLEASH HELL' : 'Press I to UNLEASH HELL', '#ffe08a', 34, 1.8, 0.3);
-    Voice.say('The crack is ninety!', 1); Sound.sfx.cheer(1.4); Sound.sfx.chant('kerry');
+    Voice.say('The crack is ninety!', 1); Sound.sfx.cheer(1.4); Sound.sfx.chant('name');
     showHint('special');
   }
 }
@@ -1104,7 +1104,7 @@ const Game = {
     G.hint = null; G.hintQueue = []; G.ended = false; G.crowdVerdict = false; G.verdictDone = false; G.blockStreak = 0; G.tigrisGift = false; G.giftAt = 0;
     for (const d of DOORS) d.open = 0;
     G.hatches = HATCHES.map((h) => ({ x: h.x, y: h.y, state: 'closed', t: 0, lid: 0, dog: null }));
-    const p = new Fighter('mossie', 0, 330, 560); p.face = 1;
+    const p = new Fighter('mike', 0, 330, 560); p.face = 1;
     G.player = p; G.fighters.push(p);
     G.cam.x = 650;
     G.paused = false;
@@ -1184,7 +1184,7 @@ const Game = {
       this.queueWave(G.waves[G.waveIdx]);
       const lastW = G.waveIdx === G.waves.length - 1 && G.waves.length > 1;
       banner('ROUND ' + roman(G.waveIdx + 1), lastW ? 'Last round, lads' : ROUND_LINES[G.waveIdx % ROUND_LINES.length], '#f3e6c4', 36, 1.5, 0.34);
-      if (G.bout.tutorial && G.waveIdx === 2) { G.craic = 89; addCraic(6, null); popup(G.player, 'THE LADS ARE READY, MOSSIE. GIVE THE SIGNAL.', '#ffe08a', 14); }
+      if (G.bout.tutorial && G.waveIdx === 2) { G.craic = 89; addCraic(6, null); popup(G.player, 'THE LADS ARE READY, LYNCHY. GIVE THE SIGNAL.', '#ffe08a', 14); }
       if (G.waveIdx === 0 && G.tigrisGift) G.giftAt = G.time + 1.6;
     }
     Sound.sfx.bell(2);
@@ -1201,7 +1201,7 @@ const Game = {
     const p = G.player; p.set('victory'); p.inv = 99;
     const tigris = G.bout && G.bout.verdict;
     banner(tigris ? 'BAR HIM!' : 'SLÁINTE VICTOR!', tigris ? 'The Landlord gives the thumbs down...' : G.crowdVerdict ? 'The crowd has spoken' : null, tigris ? '#e2433a' : '#ffe08a', 44, 2.6, 0.36);
-    Music.stinger('win'); Sound.sfx.cheer(1.6); Sound.sfx.chant('kerry');
+    Music.stinger('win'); Sound.sfx.cheer(1.6); Sound.sfx.chant('name');
     G.hostMood = tigris ? 'down' : G.host === 'commodus' ? 'angry' : 'cheer'; G.hostMoodT = 99;
     if (G.mode === 'story') { const b = Store.data.best.bouts[G.bout.id]; const r = this.results(); if (!b || r.total > b.score) Store.data.best.bouts[G.bout.id] = { score: r.total, grade: r.grade }; Store.save(); }
   },
@@ -1323,7 +1323,7 @@ const Game = {
     G.cam.tz = G.zoomT > 0 ? 1.22 : 1;
     G.cam.zoom = damp(G.cam.zoom, G.cam.tz, 5, dt);
     const half = G.viewW / 2 / G.cam.zoom;
-    if (p && G.phase !== 'idle') tx += half * 0.12;  // keep Mossie a little left of centre, away from the right-thumb buttons
+    if (p && G.phase !== 'idle') tx += half * 0.12;  // keep Mike a little left of centre, away from the right-thumb buttons
     const lo = Math.max(WORLD.sceneL + half, Math.min(650, -150 + half)), hi = Math.min(WORLD.sceneR - half, Math.max(650, 1470 - half));
     tx = lo <= hi ? clamp(tx, lo, hi) : 650;
     G.cam.x = damp(G.cam.x, tx, 4.5, dt);

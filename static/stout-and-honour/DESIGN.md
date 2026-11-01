@@ -12,7 +12,7 @@ The film's arena maps neatly onto a pub, because both are places where a crowd g
 | The emperor's thumb | The landlord behind the bar giving a thumbs up or down |
 | Gladius and shield | Hurley and bodhrán |
 | "Win the crowd" | The **craic meter**, which maxes out at ninety |
-| The Spaniard | The Kerryman |
+| The Spaniard | Lynchy (Mike Lynch, in the gladiator costume he wore out on Halloween) |
 | Zucchabar | A back room just outside Mullingar (the name already has "bar" in it) |
 | Chariots at Carthage | A stag party in shopping trolleys |
 | Tigers through trapdoors | The landlord's Jack Russell, Tiger, through the cellar hatches |
@@ -224,6 +224,6 @@ stateDiagram-v2
 
 ## 11. Nods, for the record
 
-**From the film:** the title (a play on "strength and honour"), the tagline (life and eternity become the pub and the parish), the "Are you not entertained?" taunt, the Unleash Hell special, the crowd chant (Kerryman! for Spaniard!), Zucchabar, Carthage, Tigris, the thumbs verdict, "Am I not merciful?", "terribly vexed", the spiked final duel, and the barley field.
+**From the film:** the title (a play on "strength and honour"), the tagline (life and eternity become the pub and the parish), the "Are you not entertained?" taunt, the Unleash Hell special, the crowd chant (Lynchy! for Spaniard!), Zucchabar, Carthage, Tigris, the thumbs verdict, "Am I not merciful?", "terribly vexed", the spiked final duel, and the barley field.
 
 **From the pub:** last orders and the bell, the round system ("It's your round", "Same again", "One for the road"), the lock-in, being barred, Fir and Mná on the jacks doors, the snug, the trad session, the two-part pour, the toasted special, a cup of tae, the turnip jack-o'-lantern on the windowsill (Samhain did it first), a chalkboard that says NO SINGING, the Guards, Olé olé from Italia '90, the Celtic Tiger, culchies, the Big Smoke, and Ballygobackwards.

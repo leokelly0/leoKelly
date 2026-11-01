@@ -48,6 +48,7 @@ h1, h2, h3 { text-wrap: balance; }
 .logo.small { font-size: clamp(30px, min(10vh, 7vw), 64px); justify-content: flex-start; }
 .eyebrow { font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; font-size: clamp(10px, 2.6vh, 13px); color: var(--brass); margin: 0 0 0.8em; }
 .tag { font-family: var(--irish); font-size: clamp(14px, 3.8vh, 21px); color: #ead6a2; margin: 0.55em 0 1em; }
+.eyebrow.billing { font-size: clamp(15px, 4.6vh, 24px); letter-spacing: 0.4em; color: var(--cream); text-shadow: 0 2px 0 #000, 0 0 14px rgba(0,0,0,0.9); margin-bottom: 0.3em; }
 .fine { font-size: clamp(11px, 2.6vh, 13px); color: var(--muted); margin: 1em 0 0; max-width: 46ch; margin-inline: auto; line-height: 1.4; }
 
 .btn { font: 700 clamp(14px, 3.5vh, 18px)/1.1 var(--display); letter-spacing: 0.06em; text-transform: uppercase; color: var(--cream); background: linear-gradient(180deg, #2c6a4c, #173d2c); border: 2px solid var(--brass); border-radius: 10px; padding: 0.68em 1.1em; box-shadow: inset 0 1px 0 rgba(255,240,200,0.25), inset 0 -3px 0 rgba(0,0,0,0.35), 0 4px 0 #000; cursor: pointer; min-height: 44px; touch-action: manipulation; text-align: center; }
@@ -180,10 +181,11 @@ kbd { font: 700 12px var(--body); background: #120a06; border: 1px solid rgba(21
 
 <section class="screen" id="s-title" hidden>
   <div class="title-wrap">
-    <p class="eyebrow">A gladiator brawler in an Irish pub</p>
+    <p class="eyebrow billing">Mike Lynch</p>
     <h1 class="logo"><span>Stout</span><span class="amp">&amp;</span><span>Honour</span></h1>
     <p class="tag">What we do in the pub echoes in the parish.</p>
     <button class="btn primary pulse" id="b-enter">Enter the pub</button>
+    <p class="fine">A gladiator brawler in an Irish pub.</p>
     <p class="fine" id="install-tip" hidden>On iPhone, tap Share then Add to Home Screen to play full screen. Hold the phone sideways.</p>
   </div>
 </section>
@@ -196,7 +198,7 @@ kbd { font: 700 12px var(--body); background: #120a06; border: 1px solid rgba(21
       <p class="fine">Win the crowd and you'll win your freedom. Mind your pint.</p>
     </div>
     <div class="menu-actions">
-      <button class="btn primary" id="b-story"><span class="btn-title">The Legend of Mossie</span><span class="btn-sub" id="story-sub">Story · seven bouts</span></button>
+      <button class="btn primary" id="b-story"><span class="btn-title">The Legend of Lynchy</span><span class="btn-sub" id="story-sub">Story · seven bouts</span></button>
       <button class="btn" id="b-lockin"><span class="btn-title">The Lock-In</span><span class="btn-sub" id="lockin-sub">Endless waves after closing time</span></button>
       <div class="row"><button class="btn small" id="b-howto">How to play</button><button class="btn small" id="b-settings">Settings</button></div>
       <div class="diff" role="radiogroup" aria-label="Difficulty">
@@ -211,7 +213,7 @@ kbd { font: 700 12px var(--body); background: #120a06; border: 1px solid rgba(21
 
 <section class="screen" id="s-chapters" hidden>
   <div class="panel scroll">
-    <h2>The Legend of Mossie</h2>
+    <h2>The Legend of Lynchy</h2>
     <ul class="chapters" id="chapter-list"></ul>
     <div class="panel-actions"><button class="btn small" id="b-chapters-back">Back</button></div>
   </div>

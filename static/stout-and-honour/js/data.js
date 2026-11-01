@@ -18,7 +18,7 @@ const SKINS = ['#f2c9a6', '#eab38d', '#e3a47f', '#f6d5bd', '#cf9068', '#a86c48',
 const HAIRS = ['#2a1a10', '#4a2c17', '#6e4022', '#b5652a', '#d9b46a', '#16110d', '#8a8070'];
 
 const LOOKS = {
-  mossie: () => ({ skin: '#e6af88', hair: '#24160d', hairStyle: 'short', beard: 'stubble', shirt: '#1c7a3e', trim: '#f2c230', pattern: 'hoops', sleeves: 'short', shorts: true, pants: '#f1efe6', socks: '#1c7a3e', sockTrim: '#f2c230', shoes: '#151515', weapon: 'hurley', shield: 'bodhran', build: 1 }),
+  mike: () => ({ skin: '#eec5a5', hair: '#5d3c22', hairStyle: 'mop', beard: 'stubble', dirt: true, shades: true, shirt: '#f2efe8', sleeves: 'short', frayed: true, tunic: '#f2efe8', armor: { plate: '#1d1d21', trim: '#c9ccd3' }, pauldrons: true, pteruges: true, bracers: true, greaves: true, pants: '#eec5a5', shoes: '#18181c', weapon: 'hurley', shield: 'bodhran', build: 0.98 }),
   marcus: () => ({ skin: '#efc9a8', hair: '#e2e2e2', hairStyle: 'sides', beard: 'full', beardColor: '#e6e6e6', shirt: '#f1ebdc', waistcoat: '#2c4a3a', sleeves: 'long', pants: '#2a2622', shoes: '#3a2416', build: 1.02, belly: 0.25, towel: true }),
   proximo: () => ({ skin: '#d9a07a', hair: '#3a2a1e', hairStyle: 'bald', beard: 'full', beardColor: '#7a6a58', shirt: '#ece2cc', apron: '#26221f', sleeves: 'rolled', pants: '#2b2b33', shoes: '#2a1a10', build: 1.12, belly: 0.4, towel: true }),
   cassius: () => ({ skin: '#edc4a2', hair: '#2a1a10', hairStyle: 'slick', shirt: '#f4f1e8', jacket: '#7a1f2e', bowtie: '#e2b23a', sleeves: 'long', pants: '#1c1c22', shoes: '#111', build: 0.95, glasses: true, mic: true }),
@@ -46,7 +46,7 @@ const LOOKS = {
    tele: 'w' blockable (white flash), 'r' unblockable (red), 'y' crisps,
    'p' counter stance (purple).                                          */
 const MOVES = {
-  // Mossie
+  // Mike
   p1: { anim: 'jab', startup: 0.075, active: 0.08, recovery: 0.17, range: 94, dmg: 7, hitstun: 0.36, kb: 70, depth: 36, lunge: 120 },
   p2: { anim: 'swipe', startup: 0.085, active: 0.09, recovery: 0.19, range: 102, dmg: 8, hitstun: 0.38, kb: 80, depth: 36, lunge: 130 },
   p3: { anim: 'swing', startup: 0.13, active: 0.1, recovery: 0.3, range: 120, dmg: 13, hitstun: 0.5, kb: 300, depth: 42, lunge: 170, knockdown: true, multi: true, launch: 330, tag: 'combo3' },
@@ -88,7 +88,7 @@ const MOVES = {
 };
 
 /* --------------------------------------------------------------- archetypes */
-const PLAYER_ARCH = { name: 'Mossie', hp: 100, speed: 255, scale: 1, look: LOOKS.mossie };
+const PLAYER_ARCH = { name: 'Mike Lynch', hp: 100, speed: 255, scale: 1, look: LOOKS.mike };
 const ARCH = {
   stag: { name: 'Stag Party Lad', hp: 42, speed: 150, scale: 1, look: LOOKS.stag, moves: { jab: 3, haymaker: 1 }, ai: { ring: 200, block: 0, cd: [0.9, 1.8], drinks: true }, score: 100 },
   rugby: { name: 'Rugby Club Gael', hp: 72, speed: 138, scale: 1.08, look: LOOKS.rugby, moves: { jab: 2, tackle: 1 }, ai: { ring: 240, block: 0.15, cd: [1.1, 2.0], drinks: true }, score: 180 },
@@ -108,24 +108,25 @@ const BOUTS = [
     id: 'germania', num: 'I', title: 'The Battle of Germania', place: 'The Lounge, Colosseum Bar', theme: 'colosseum', host: 'marcus', music: 'reel', time: 120, tutorial: true,
     waves: [['stag'], ['stag', 'stag'], ['stag', 'stag', 'stag']],
     pre: [
-      ['narrator', 'A.D. 180. At the height of its power, the Colosseum Bar & Lounge was the finest pub in the Big Smoke.'],
+      ['narrator', 'Halloween night. Mike Lynch went out dressed as a gladiator. By closing time, he would be one.'],
+      ['narrator', 'The Colosseum Bar & Lounge, established A.D. 180, was the finest pub in the Big Smoke.'],
       ['narrator', "For twenty years old Marcus O'Reilly pulled the pints. Now he was tired, and the pub needed an heir."],
-      ['narrator', 'His son Commodus wanted it badly. Marcus had other plans, for his most loyal barman: a Kerryman called Mossie.'],
-      ['marcus', 'Mossie. The barbarian hordes from Ballygobackwards are in the lounge. A stag party. Will they listen to reason?'],
-      ['mossie', "They're on their fourteenth pint, Marcus. Reason went home at nine o'clock."],
-      ['mossie', 'Right, lads. Strength and honour.'],
+      ['narrator', 'His son Commodus wanted it badly. Marcus had other plans, for his most loyal barman, Mike Lynch, who had turned up for the Halloween shift in full armour.'],
+      ['marcus', 'Lynchy. The barbarian hordes from Ballygobackwards are in the lounge. A stag party. Will they listen to reason?'],
+      ['mike', "They're on their fourteenth pint, Marcus. Reason went home at nine o'clock."],
+      ['mike', 'Right, lads. Strength and honour.'],
     ],
     post: [
-      ['marcus', 'Fair play, Mossie. When I go, I want you to have the pub. Not Commodus. You.'],
+      ['marcus', 'Fair play, Lynchy. When I go, I want you to have the pub. Not Commodus. You.'],
       ['marcus', 'Give it back to the people. A pub with no telly. Just the pints, the session and the craic.'],
-      ['commodus', 'Father... you are giving the pub to the BARMAN?'],
+      ['commodus', 'Father... you are giving the pub to the BARMAN? The one dressed as a GLADIATOR?'],
       ['marcus', "You'd put a telly in every corner and water in every pint, son. No."],
       ['narrator', "Marcus O'Reilly passed away that night, peacefully, in his snug. Some say Commodus had a hand in it. Most say it was the coddle."],
-      ['commodus', "Shake on it, Mossie. You work for me now. It's a once-off offer."],
-      ['mossie', 'Marcus wanted the pub left to the people.'],
+      ['commodus', "Shake on it, Lynch. You work for me now. It's a once-off offer."],
+      ['mike', 'Marcus wanted the pub left to the people.'],
       ['commodus', 'Then you are BARRED. And your pint... goes down the sink.'],
-      ['narrator', "And so Mossie's pint was poured, untouched, down the sink. A crime the parish would never forget."],
-      ['narrator', 'Barred from every pub in the Big Smoke, Mossie fled to the provinces, and woke up somewhere called Zucchabar.'],
+      ['narrator', "And so Mike's pint was poured, untouched, down the sink. A crime the parish would never forget."],
+      ['narrator', 'Barred from every pub in the Big Smoke, still in his armour, Mike fled to the provinces, and woke up somewhere called Zucchabar.'],
     ],
   },
   {
@@ -133,15 +134,15 @@ const BOUTS = [
     waves: [['stag', 'stag'], ['rugby', 'stag'], ['rugby', 'rugby']],
     pre: [
       ['proximo', 'Zucchabar. The name has "bar" in it, so that is something. They call me Proximo. I run the back room.'],
-      ['proximo', "I don't care who you are, Kerryman. In here you're a gladiator. And a gladiator doesn't win for me. He wins the crowd."],
+      ['proximo', "Nice costume, lad. In here it isn't a costume. You're a gladiator now, and a gladiator doesn't win for me. He wins the crowd."],
       ['proximo', 'Watch the CRAIC METER. The crowd loves variety: combos, parries, a well-timed dodge. Do the same thing over and over and they will boo you.'],
       ['proximo', 'And when a lad is on the floor, give them a TAUNT. Show them what you are.'],
     ],
     post: [
-      ['mossie', 'ARE YOU NOT ENTERTAINED?! Is this not worth the cover charge?!'],
-      ['crowd', 'KERRYMAN! KERRYMAN! KERRYMAN!'],
+      ['mike', 'ARE YOU NOT ENTERTAINED?! Is this not worth the cover charge?!'],
+      ['crowd', 'LYNCHY! LYNCHY! LYNCHY!'],
       ['proximo', "Ha! I never pulled the fastest pint in Mullingar. But the punters loved me, and that kept me behind the bar for forty years."],
-      ['proximo', 'Win the crowd, Kerryman. That is the whole job.'],
+      ['proximo', 'Win the crowd, Lynchy. That is the whole job.'],
     ],
   },
   {
@@ -155,8 +156,8 @@ const BOUTS = [
     post: [
       ['proximo', 'News from the Big Smoke. Commodus has reopened the Colosseum Bar, and he is hosting a gladiator night.'],
       ['proximo', 'Every back-room fighter in Ireland is invited.'],
-      ['mossie', "Then we're going to the Big Smoke."],
-      ['proximo', "We all get barred in the end, Kerryman. You don't get to pick the night. You only get to pick how you go out the door."],
+      ['mike', "Then we're going to the Big Smoke."],
+      ['proximo', "We all get barred in the end, Lynchy. You don't get to pick the night. You only get to pick how you go out the door."],
     ],
   },
   {
@@ -165,18 +166,18 @@ const BOUTS = [
     pre: [
       ['cassius', 'LADIES AND GENTLEMEN! For one night only, the Colosseum Bar recreates the fall of mighty CARTHAGE!'],
       ['cassius', 'On one side: the barbarian hordes!'],
-      ['mossie', "That's us."],
+      ['mike', "That's us."],
       ['cassius', 'And on the other: the legions of Scipio... in SHOPPING TROLLEYS!'],
-      ['mossie', 'Lads. Whatever comes out of those jacks, we stand shoulder to shoulder. Nobody leaves the line.'],
+      ['mike', 'Lads. Whatever comes out of those jacks, we stand shoulder to shoulder. Nobody leaves the line.'],
       ['proximo', 'Watch the floor. A flashing lane means a trolley is coming. Get out of its way.'],
     ],
     post: [
       ['commodus', 'You. In the helmet. Who are you?'],
-      ['mossie', 'Just a gladiator.'],
+      ['mike', 'Just a gladiator.'],
       ['commodus', 'Nobody turns their back on the Landlord. Take that helmet off.'],
-      ['mossie', "Mossie Decimus Moriarty. Captain of the darts team. Keeper of the Friday lock-in. The last barman Marcus O'Reilly ever hired."],
-      ['mossie', 'Owner of a murdered pint. And I will have my round. Tonight, or some other night.'],
-      ['crowd', 'KERRYMAN! KERRYMAN! KERRYMAN!'],
+      ['mike', "Mike Decimus Lynch. Captain of the darts team. Keeper of the Friday lock-in. The last barman Marcus O'Reilly ever hired."],
+      ['mike', 'Owner of a murdered pint. And I will have my round. Tonight, or some other night.'],
+      ['crowd', 'LYNCHY! LYNCHY! LYNCHY!'],
       ['commodus', '...It vexes me. I am terribly vexed.'],
     ],
   },
@@ -186,14 +187,14 @@ const BOUTS = [
     pre: [
       ['cassius', 'And now: never beaten, in this pub or any other...'],
       ['cassius', 'Five-time Connacht champion, unbeaten since the Celtic Tiger... TIGRIS OF GALWAY!'],
-      ['tigris', "I've not lost since 1995, Kerryman. I'm not starting tonight."],
+      ['tigris', "I've not lost since 1995, Lynch. And I'm not losing to a lad in a Halloween costume."],
       ['proximo', "Mind the floor. Commodus has put his Jack Russell in the cellar. The dog's name is Tiger. He goes for the ankles."],
       ['proximo', 'If a hatch starts rattling, get clear. Give the dog a tap with the hurley and the hatch slams shut.'],
     ],
     postSpared: [
-      ['crowd', 'MOSSIE THE MERCIFUL! MOSSIE THE MERCIFUL!'],
+      ['crowd', 'MIKE THE MERCIFUL! MIKE THE MERCIFUL!'],
       ['commodus', 'The crowd... the crowd LOVES him. How?'],
-      ['tigris', "You've a good heart, Kerryman. I owe you a pint. I won't forget it."],
+      ['tigris', "You've a good heart, Lynchy. I owe you a pint. I won't forget it."],
     ],
     postBarred: [
       ['commodus', 'Am I not merciful? AM I NOT MERCIFUL?!'],
@@ -208,31 +209,32 @@ const BOUTS = [
       ['cassius', "Ladies and gentlemen: the Landlord's own PRAETORIAN GUARD! Not tonight, lads!"],
     ],
     post: [
-      ['commodus', 'Behind my bar, out to the provinces, and back into my arena. Quite the story, Kerryman.'],
+      ['commodus', 'Behind my bar, out to the provinces, and back into my arena. Quite the story, Lynch.'],
       ['commodus', 'The parish wants an ending, and I have one in mind. A barring for the ages.'],
       ['commodus', 'Here. A pint, on the house. To honour you.'],
-      ['narrator', 'Mossie should have known. Nobody gets a pint on the house from Commodus. It was spiked.'],
+      ['narrator', 'Mike should have known. Nobody gets a pint on the house from Commodus. It was spiked.'],
     ],
   },
   {
     id: 'commodus', num: 'VII', title: 'Commodus', place: 'The Colosseum Bar, closing time', theme: 'colosseum', host: null, music: 'boss', time: 180, boss: 'commodus', spiked: true,
     waves: [['commodus']],
     pre: [
-      ['proximo', 'Mossie... your pint. He spiked your pint!'],
-      ['mossie', "I'm grand. Strength and honour, Proximo."],
+      ['proximo', 'Lynchy... your pint. He spiked your pint!'],
+      ['mike', "I'm grand. Strength and honour, Proximo."],
       ['proximo', "Mind him. When he glows purple he's waiting for you to swing. Don't. Make him come to you."],
     ],
-    preSpared: [['tigris', 'Kerryman! I said I owed you a pint. CATCH!']],
+    preSpared: [['tigris', 'Lynchy! I said I owed you a pint. CATCH!']],
     post: [
       ['commodus', 'You simply won\'t... go... home.'],
       ['cassius', 'COMMODUS... is BARRED!'],
-      ['narrator', 'And then the spiked pint caught up with Mossie. The room went quiet. He saw a field of barley, golden, all the way to a little pub at the end of a road.'],
+      ['narrator', 'And then the spiked pint caught up with Mike. The room went quiet. He saw a field of barley, golden, all the way to a little pub at the end of a road.'],
       ['narrator', 'Elysium. Where every pint settles instantly, the session never ends, and nobody ever calls time.'],
-      ['proximo', 'Mossie? MOSSIE! Get up, ye big eejit. You only fainted.'],
-      ['mossie', 'Is... is the pub safe?'],
+      ['proximo', 'Lynchy? LYNCHY! Get up, ye big eejit. You only fainted.'],
+      ['mike', 'Is... is the pub safe?'],
       ['proximo', "It's the people's pub now, like Marcus wanted. No telly. Just the session and the craic."],
-      ['mossie', "Then the pub is free. I'll see that barley field some day. Just... not tonight."],
+      ['mike', "Then the pub is free. I'll see that barley field some day. Just... not tonight."],
       ['proximo', "Not tonight. Sure, it's your round."],
+      ['narrator', 'Not bad for a lad who only came out in a costume.'],
       ['narrator', 'What we do in the pub... echoes in the parish.'],
     ],
   },
@@ -255,11 +257,11 @@ const TIPS = [
   'Hit the dog in the hatch to shut it. Down, Tiger.',
   'Purple glow on Commodus? Don\'t swing. He\'s waiting for you.',
   'Dodge an attack at the last second for an OLÉ. The crowd goes wild for it.',
-  'Under a quarter health, Mossie fights for vengeance: his hits land harder.',
+  'Under a quarter health, Mike fights for vengeance: his hits land harder.',
   'Woke up in a green field with the sun on your face? That is not the afterlife. That is Kerry, and you missed the last bus.',
   'Marcus always said the best lock-ins are the ones you only whisper about. Any louder and the Guards hear it.',
   'The frost sometimes makes the tap stick.',
-  'Shadows and dust, Kerryman. Shadows and dust, and crisp crumbs.',
+  'Shadows and dust, Lynchy. Shadows and dust, and crisp crumbs.',
   'The crowd doesn\'t know what it wants until it sees what the fella beside it wants. (A French lad at the bar.)',
   'Never trust a man who won\'t stand his round. Skin in the game. (A Lebanese lad who deadlifts.)',
   'Competition is for losers, says a lad from California. He has never seen a Saturday night in Mullingar.',
@@ -269,7 +271,7 @@ const TIPS = [
 
 const CREDITS = [
   ['STOUT & HONOUR', ''],
-  ['Mossie Decimus Moriarty', 'as himself'],
+  ['Mike Lynch', 'as himself, in his own armour'],
   ["Commodus O'Dowd", 'barred'],
   ['Proximo', 'retired, ish'],
   ['Tigris of Galway', 'undefeated (mostly)'],
